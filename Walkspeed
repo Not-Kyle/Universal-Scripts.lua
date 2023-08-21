@@ -1,0 +1,9 @@
+local coryu = {
+	['LP'] = game:GetService('Players').LocalPlayer;
+}
+
+local speed = 100-- Change your speed here
+
+if coryu['LP'] and coryu['LP'].Character and coryu['LP'].Character:FindFirstChild('Humanoid') then
+	coryu['LP'].Character.Humanoid.WalkSpeed = speed
+end
