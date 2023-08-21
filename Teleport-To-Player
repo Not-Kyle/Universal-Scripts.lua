@@ -1,0 +1,9 @@
+local PY = game:GetService('Players')
+local LP = PY.LocalPlayer
+
+target = 'galaxygirl243573'
+
+local targetPY = PY:FindFirstChild(target)
+if LP and LP.Character and LP.Character:FindFirstChild('Humanoid') then
+	LP.Character.HumanoidRootPart.CFrame = targetPY.Character.HumanoidRootPart.CFrame
+end
