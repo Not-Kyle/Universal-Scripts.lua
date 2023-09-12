@@ -21,7 +21,7 @@ if not getgenv()['CoryuSpam'] then
     }
 
     getgenv().CHATVIEW = function()
-        local CHATVISIBLE = METATABLE['LocalPlayer'].PlayerGui.Chat.Frame 
+        local CHATVISIBLE = coryu['LocalPlayer'].PlayerGui.Chat.Frame 
         CHATVISIBLE.ChatChannelParentFrame.Visible = true 
         CHATVISIBLE.ChatBarParentFrame.Position = CHATVISIBLE.ChatChannelParentFrame.Position + UDim2.new(UDim.new(), CHATVISIBLE.ChatChannelParentFrame.Size.Y)
     end
