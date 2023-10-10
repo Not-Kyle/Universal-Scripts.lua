@@ -1,9 +1,0 @@
-local PY = game:GetService('Players')
-local LP = PY.LocalPlayer
-
-target = '' -- type the users name between the ''
-
-local targetPY = PY:FindFirstChild(target)
-if LP and LP.Character and LP.Character:FindFirstChild('Humanoid') then
-	LP.Character.HumanoidRootPart.CFrame = targetPY.Character.HumanoidRootPart.CFrame
-end
