@@ -1,9 +1,20 @@
-local coryu = {
-	['LP'] = game:GetService('Players').LocalPlayer;
-}
+getgenv().User = game:GetService'Players'.LocalPlayer
+getgenv().WorkSpace = game:GetService'Workspace'
+getgenv().UserInputService = game:GetService'UserInputService'
 
-local speed = 100-- Change your speed here
+local CoryuMadeThis = true
+local Speed = 100
 
-if coryu['LP'] and coryu['LP'].Character and coryu['LP'].Character:FindFirstChild('Humanoid') then
-	coryu['LP'].Character.Humanoid.WalkSpeed = speed
+while CoryuMadeThis do
+    WorkSpace[User.Name].Character:FindFirstChild'Humanoid'.WalkSpeed = Speed
 end
+
+UserInputService.InputBegan:Connect(function(Args,Kill)
+    if Kill then
+        return nil
+    elseif Args.KeyCode == Enum.KeyCode.L then
+        Speed = Speed - 10
+    elseif Args.KeyCode == Enum.KeyCode.K then
+        Speed = Speed + 10
+    end
+end)
