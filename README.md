@@ -1,0 +1,4 @@
+# All scripts made by Coryu (Not-Kyle)
+
+Scripts should all be useable for any game
+Any one of these scripts can be taken by just give credits
