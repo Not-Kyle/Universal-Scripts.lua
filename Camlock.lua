@@ -70,30 +70,30 @@ local function API()
     end
     if isfolder('Coryu') == nil then
         makefolder('Coryu')
-    elseif isfolder('Coryu') ~= nil then
-        return nil
-    end
+    elseif isfolder('Coryu/Universal') == nil then
+	    makefolder('Coryu/Universal')
+	end
 end
 
 ypcall(function()
-    CoryuCamlock = readfile('Coryu/CoryuCamlock.js')
+    CoryuCamlock = readfile('Coryu/Universal/Camlock.js')
 end)
 
 local function SaveSettings()
     if CoryuCamlock then
-        CoryuCamlock = gethttp_1:JSONDecode(readfile'Coryu/CoryuCamlock.js')
+        CoryuCamlock = gethttp_1:JSONDecode(readfile'Coryu/Universal/Camlock.js')
         for i,v in next, Settings do
             Settings[i] = CoryuCamlock[i]
         end
-        writefile('Coryu/CoryuCamlock.js', gethttp_1:JSONEncode(Settings))
+        writefile('Coryu/Universal/Camlock.js', gethttp_1:JSONEncode(Settings))
     else
-        CoryuCamlock = writefile('Coryu/CoryuCamlock.js', gethttp_1:JSONEncode(Settings))
+        CoryuCamlock = writefile('Coryu/Universal/Camlock.js', gethttp_1:JSONEncode(Settings))
     end
 end
 
 local function writedata()
     if writefile and readfile and makefolder then
-        writefile('Coryu/CoryuBlink.js', Http:JSONEncode(File))
+        writefile('Coryu/Universal/Camlock.js', Http:JSONEncode(File))
     else
         return nil
     end
