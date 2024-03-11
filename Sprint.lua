@@ -1,3 +1,4 @@
+-- if taken please give credits
 if not getgenv()['CoryuBlink'] then
     
     getgenv()['CoryuBlink'] = true
@@ -23,9 +24,15 @@ if not getgenv()['CoryuBlink'] then
 	    Workspace.TPer.Color = Color3.fromRGB(255, 255, 0)
     end
     local CoryuBlinkFile;
-    makefolder('Coryu')
+    local function FolderCheck()
+	if isfolder('Coryu') == nil then
+            makefolder('Coryu')
+	elseif isfolder('Coryu/Universal') == nil then
+	    makefolder('Coryu/Universal')
+	end
+    end
     ypcall(function()
-    	CoryuBlinkFile = readfile('Coryu/CoryuBlink.js')
+    	CoryuBlinkFile = readfile('Coryu/Universal/CoryuBlink.js')
     end)
     
     RunService.Stepped:Connect(function()
@@ -39,18 +46,18 @@ if not getgenv()['CoryuBlink'] then
     end)
     
     if CoryuBlinkFile then
-    	CoryuBlinkFile = Http:JSONDecode(readfile'Coryu/CoryuBlink.js') -- reads the table
+    	CoryuBlinkFile = Http:JSONDecode(readfile'Coryu/Universal/CoryuBlink.js') -- reads the table
     	for i,v in next, File do
     		File[i] = CoryuBlinkFile[i]
     	end
-    	writefile('Coryu/CoryuBlink.js', Http:JSONEncode(File)) -- updates the tables strings (basically)
+    	writefile('Coryu/Universal/CoryuBlink.js', Http:JSONEncode(File)) -- updates the tables strings (basically)
     else
-    	CoryuBlinkFile = writefile('Coryu/CoryuBlink.js', Http:JSONEncode(File))
+    	CoryuBlinkFile = writefile('Coryu/Universal/CoryuBlink.js', Http:JSONEncode(File))
     end
     
     local function writedate()
     	if writefile and readfile then
-    		writefile('Coryu/CoryuBlink.js', Http:JSONEncode(File))
+    		writefile('Coryu/Universal/CoryuBlink.js', Http:JSONEncode(File))
     	else
     		return nil
     	end
