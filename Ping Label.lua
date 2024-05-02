@@ -61,9 +61,9 @@ RunService.Stepped:Connect(function()
     PingLabel.Text        = " Ping: "..math.round(PingInt)
     FpsLabel.Text         = " Fps: "..math.floor(FramesPerSecond)
 
-    if Stats:FindFirstChild'PerformanceStats'.Ping:GetValue() > 120 then
+    if Stats:FindFirstChild'PerformanceStats'.Ping:GetValue() > 100 then
         PingLabel.TextColor3 = Color3.fromRGB(255, 255, 0)
-    elseif Stats:FindFirstChild'PerformanceStats'.Ping:GetValue() > 230 then
+    elseif Stats:FindFirstChild'PerformanceStats'.Ping:GetValue() > 165 then
         PingLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
     end
 end)
