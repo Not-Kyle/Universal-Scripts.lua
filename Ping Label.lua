@@ -63,9 +63,7 @@ RunService.Stepped:Connect(function()
 
     if Stats:FindFirstChild'PerformanceStats'.Ping:GetValue() > 120 then
         PingLabel.TextColor3 = Color3.fromRGB(255, 255, 0)
-    end
-    
-    if Stats:FindFirstChild'PerformanceStats'.Ping:GetValue() > 230 then
+    elseif Stats:FindFirstChild'PerformanceStats'.Ping:GetValue() > 230 then
         PingLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
     end
 end)
