@@ -4,7 +4,7 @@ if not getgenv()['hellokittysouljia'] then
     getgenv().Host = players.LocalPlayer
     getgenv().Core = game:GetService'CoreGui'
     getgenv().Mouse = Host:GetMouse()
-    getgenv().Version = '4.2b'
+    getgenv().Version = '4.3b'
     getgenv().Input = game:GetService'UserInputService'
     getgenv().getHttp = game:GetService'HttpService'
     getgenv().ReplicatedStorage = game:GetService'ReplicatedStorage'
@@ -73,13 +73,13 @@ if not getgenv()['hellokittysouljia'] then
     end
 
     local RGui = findbyte(Core,'RobloxGui','Find')
-    local NGui = findbyte(Core.RGui,'NotificationFrame','Find')
-    for i, c in pairs(Core.NGui:GetDescendants()) do
-        if tostring(c) == "Notification" then
-            local Ntitle = findbyte(c,'NotificationTitle','Find')
-            local Ntext  = findbyte(c,'NotificationText','Find')
-                c.Ntitle.TextColor3 = Color3.fromRGB(255, 0, 0)
-            c.Ntext.TextColor3 = Color3.fromRGB(255, 0, 0)
+    local NGui = findbyte(RGui,'NotificationFrame','Find')
+    for i, v in pairs(NGui:GetDescendants()) do
+        if tostring(v) == "Notification" then
+            local Ntitle = findbyte(v,'NotificationTitle','Find')
+            local Ntext  = findbyte(v,'NotificationText','Find')
+                v.Ntitle.TextColor3 = Color3.fromRGB(255, 0, 0)
+            v.Ntext.TextColor3 = Color3.fromRGB(255, 0, 0)
         end
     end
 
@@ -257,10 +257,10 @@ if not getgenv()['hellokittysouljia'] then
                 if IsOn then
                     while IsOn do
                         if string.len(Secondary.Text) > 0 then
-                            local DefaultCSCE = findbtye(ReplicatedStorage,'DefaultChatSystemChatEvents','Wait')
+                            local DefaultCSCE = findbyte(ReplicatedStorage,'DefaultChatSystemChatEvents','Wait')
                             local Request = findbyte(DefaultCSCE,'SayMessageRequest','Wait')
                             task.wait(setDelay)
-                            ReplicatedStorage.Request:FireServer(Secondary.Text,'All')
+                            Request:FireServer(Secondary.Text,'All')
                         elseif string.len(Secondary.Text) == 0 then
                             return nil
                         end
@@ -280,7 +280,7 @@ if not getgenv()['hellokittysouljia'] then
             RunService.Stepped:Connect(function()
                 local Fps = Workspace:GetRealPhysicsFPS()
                 local Performance = findbyte(Stats,'PerformanceStats','Find')
-                local Ping = Stats.Performance.Ping:GetValue()
+                local Ping = Performance.Ping:GetValue()
                 Primary.FpsPingLabel.Text = 'Fps: '..math.round(Fps)..'\nPing: '..math.round(Ping)
             end)
         end
