@@ -1,6 +1,10 @@
-getgenv().IP = math.random(0,255)
-getgenv().Rep = game:GetService'ReplicatedStorage'
+local SomeJunk = game:GetService'ReplicatedStorage'
+local Int = math.random(0,255)
+local IntTwo = math.random(0,255)
+local IntThree = math.random(0,255)
+local IntFour = math.random(0,255)
+local All = Int..'.'..IntTwo..'.'..IntThree..'.'..IntFour
 
-print(IP..'.'..IP..'.'..IP..'.'..IP)
+print(All)
 
-Rep.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(IP..'.'..IP..'.'..IP..'.'..IP,'All')
+SomeJunk.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(All,'All')
