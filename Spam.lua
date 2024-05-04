@@ -78,8 +78,8 @@ if not getgenv()['hellokittysouljia'] then
         if tostring(v) == "Notification" then
             local Ntitle = findbyte(v,'NotificationTitle','Find')
             local Ntext  = findbyte(v,'NotificationText','Find')
-                v.Ntitle.TextColor3 = Color3.fromRGB(255, 0, 0)
-            v.Ntext.TextColor3 = Color3.fromRGB(255, 0, 0)
+                Ntitle.TextColor3 = Color3.fromRGB(255, 0, 0)
+            Ntext.TextColor3 = Color3.fromRGB(255, 0, 0)
         end
     end
 
