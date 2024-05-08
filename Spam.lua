@@ -5,7 +5,7 @@ if not getgenv()['hellokittysouljia'] then
     getgenv().Host = players.LocalPlayer
     getgenv().Core = game:GetService'CoreGui'
     getgenv().Mouse = Host:GetMouse()
-    getgenv().Version = '4.3b'
+    getgenv().Version = '4.4b'
     getgenv().Input = game:GetService'UserInputService'
     getgenv().getHttp = game:GetService'HttpService'
     getgenv().ReplicatedStorage = game:GetService'ReplicatedStorage'
