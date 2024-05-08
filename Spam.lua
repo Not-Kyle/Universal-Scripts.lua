@@ -1,3 +1,4 @@
+--spam V4
 if not getgenv()['hellokittysouljia'] then
     getgenv()['hellokittysouljia'] = true
     getgenv().players = game:GetService'Players'
@@ -45,28 +46,31 @@ if not getgenv()['hellokittysouljia'] then
     local SynFalse = false
     local SynTrue = true
     --Strings
-    local Keybind = 'J'
     local Off = '--'
     --Ints, or Floats
     local setDelay = 1
+    --Tables
+    local Keybinds = {
+        Keybind = 'J';
+    }
 
     local function FileSaving()
         if SpamFile ~= nil then
             SpamFile = getHttp:JSONDecode(readfile('hellokittysouljia/Settings.json'))
-            for i,v in next,File do
+            for i,v in next,Keybinds do
                 if SpamFile[i] ~= nil then
-                    File[i] = SpamFile[i]
+                    Keybinds[i] = SpamFile[i]
                 end
             end
-            writefile('hellokittysouljia/Settings.json',getHttp:JSONEncode(File))
+            writefile('hellokittysouljia/Settings.json',getHttp:JSONEncode(Keybinds))
         else
-            SpamFile = writefile('hellokittysouljia/Settings.json',getHttp:JSONEncode(File))
+            SpamFile = writefile('hellokittysouljia/Settings.json',getHttp:JSONEncode(Keybinds))
         end
     end
 
     local function SaveData()
         if writefile ~= nil and readfile ~= nil then
-            writefile('hellokittysouljia/Settings.json',getHttp:JSONEncode(File))
+            writefile('hellokittysouljia/Settings.json',getHttp:JSONEncode(Keybinds))
         else
             return AddNotification('hellokittysouljia','Error 210, Send this error & number to @killserver')
         end
@@ -194,14 +198,18 @@ if not getgenv()['hellokittysouljia'] then
             end
         end
         Toggle.MouseButton1Down:Connect(InUse)
-        Input.InputBegan:Connect(function(Args)
+        local short = Primary.SettingButton.SettingsFrame
+        Input.InputBegan:Connect(function(Args,Kill)
             if Args.UserInputType == Enum.UserInputType.MouseButton1 or Args.UserInputType == Enum.UserInputType.Touch then
                 BeingPushed = false
+            elseif Kill then
+                return nil
+            elseif Args.KeyCode == Enum.KeyCode[Keybinds.Keybind] then
+                Sort.Back.Visible = not Sort.Back.Visible
             end
         end)
         --Settings
         do
-            local short = Primary.SettingButton.SettingsFrame
             Primary.SettingButton.MouseButton1Down:Connect(function()
                 short.Visible = true
                 if short.Visible then
@@ -218,7 +226,7 @@ if not getgenv()['hellokittysouljia'] then
 
             short.KeybindBox.MouseButton1Down:Connect(function()
                 if string.len(KeybindBox.Text) > 0 then
-                    Keybind = string.upper(string.sub(tostring(KeybindBox.Text),1,1))
+                    Keybinds.Keybind = string.upper(string.sub(tostring(KeybindBox.Text),1,1))
                     short.KeybindBox.KeybindText = ' - Saved!'
                     SaveData() task.wait(1)
                     short.KeybindBox.KeybindText = ' - Keybind'
@@ -240,12 +248,21 @@ if not getgenv()['hellokittysouljia'] then
 
             short.ChatButton.MouseButton1Down:Connect(function()
                 setChat = not setChat
+                local playergui = findbyte(Host,'PlayerGui','Find')
+                local seechat = findbyte(playergui,'Chat','Find')
+                local chatframe = findbyte(seechat,'Frame','Find')
+                local cf = chatframe
+                local cfParent = findbyte(cf,'ChatBarParentFrame','Find')
+                local channel = findbyte(cf,'ChatChannelParentFrame','Find')
                 if not setChat then
                     short.ChatButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
                     short.ChatButton.ToggleButtonDrag.Position:TweenPosition(UDim2.new(0, 0, 0, 0), 'InOut', 'Quart', 0.5, false, nil)
+                    channel.Visible = false
                 else
                     short.ChatButton.BackgroundColor3 = Color3.fromRGB(85, 255, 127)
                     short.ChatButton.ToggleButtonDrag.Position:TweenPosition(UDim2.new(0.55, 0, 0, 0), 'InOut', 'Quart', 0.5, false, nil)
+                    channel.Visible = true
+                    cfParent.Position = channel.Position + UDim2.new(UDim.new(), channel.Position.Size.Y)
                 end
             end)
         end     
