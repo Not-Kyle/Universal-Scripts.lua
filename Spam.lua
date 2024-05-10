@@ -19,7 +19,7 @@ if not getgenv()['hellokittysouljia'] then
     end
     getgenv().SpamFile;
     makefolder('hellokittysouljia')
-    ypcall(function()
+    pcall(function()
         SpamFile = readfile('hellokittysouljia/Settings.json')
     end)
     getgenv().findbyte = function(f,n,classtype)
