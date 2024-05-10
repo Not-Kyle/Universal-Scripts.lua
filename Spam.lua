@@ -12,6 +12,7 @@ if not getgenv()['hellokittysouljia'] then
     getgenv().RunService = game:GetService'RunService'
     getgenv().Stats = game:GetService'Stats'
     getgenv().Workspace = game:GetService'Workspace'
+    getgenv().StarterGui = game:GetService'StarterGui'
     getgenv().AddNotification = function(title, text, time) 
         StarterGui:SetCore("SendNotification", 
         {Title = title; Text = text; Icon = ''; Duration = time;})
