@@ -6,6 +6,7 @@ local Workspace = game:GetService'Workspace'
 local TweenService = game:GetService'TweenService'
 
 local Sizeable = UDim2.new(0.1,0,0.1,0)
+local Color = Color3.fromRGB(255,0,0) -- Change color here!
 
 local CoryuCustomMouse = Instance.new("ScreenGui", Core)
 CoryuCustomMouse.Name = "CoryuCustomMouse"
@@ -22,14 +23,14 @@ CursorImage.BorderSizePixel = 0
 CursorImage.Size = UDim2.new(0,75,0,75)
 CursorImage.Visible = true
 CursorImage.Image = "rbxassetid://316279304"
-CursorImage.ImageColor3 = Color3.fromRGB(255,85,255)
+CursorImage.ImageColor3 = Color
 CursorImage.ImageTransparency = 0.020
 CursorImage.ZIndex = 2e9
 
 local Circle = Drawing.new('Circle')
 Circle.Visible = true
 Circle.Radius = 75
-Circle.Color = Color3.fromRGB(255,85,255)
+Circle.Color = Color
 Circle.Thickness = 2
 Circle.Filled = false
 Circle.Transparency = 1
