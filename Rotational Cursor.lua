@@ -1,8 +1,6 @@
 local Core = game:GetService'CoreGui'
-local Host = game:GetService'Players'.LocalPlayer
 local RunService = game:GetService'RunService'
 local UserInputService = game:GetService'UserInputService'
-local Workspace = game:GetService'Workspace'
 local TweenService = game:GetService'TweenService'
 
 local Sizeable = UDim2.new(0.1,0,0.1,0)
