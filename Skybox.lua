@@ -1,7 +1,7 @@
 getgenv().game = game
 getgenv().gS = game:GetService
-getgenv().Lighting = gS"Lighting"
-getgenv().Runservice = gS"RunService"
+getgenv().Lighting = gS("Lighting")
+getgenv().Runservice = gS("RunService")
 
 local ColorCorrection = false
 local Correction = false
