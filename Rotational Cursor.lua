@@ -29,7 +29,7 @@ local Circle = Drawing.new('Circle')
 Circle.Visible = true
 Circle.Radius = 55
 Circle.Color = Color
-Circle.Thickness = 2
+Circle.Thickness = 1 
 Circle.Filled = false
 Circle.Transparency = 1
 
