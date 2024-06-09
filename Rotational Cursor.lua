@@ -23,7 +23,7 @@ CursorImage.Visible = true
 CursorImage.Image = "rbxassetid://316279304"
 CursorImage.ImageColor3 = Color
 CursorImage.ImageTransparency = 0.020
-CursorImage.ZIndex = 2e9
+CursorImage.ZIndex = 9e9
 
 local Circle = Drawing.new('Circle')
 Circle.Visible = true
