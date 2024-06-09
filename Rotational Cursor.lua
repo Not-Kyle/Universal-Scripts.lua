@@ -4,7 +4,7 @@ local UserInputService = game:GetService'UserInputService'
 local TweenService = game:GetService'TweenService'
 
 local Sizeable = UDim2.new(0.1,0,0.1,0)
-local Color = Color3.fromRGB(255,0,0) -- Change color here!
+local Color = Color3.fromRGB(132, 3, 252) -- Change color here!
 
 local CoryuCustomMouse = Instance.new("ScreenGui", Core)
 CoryuCustomMouse.Name = "CoryuCustomMouse"
