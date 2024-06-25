@@ -7,7 +7,7 @@ getgenv().ContextActionService = game:GetService'ContextActionService';
 local Noclip = true;
 local NoclipKey = 'X'; -- Change your key here
 
-function Noclip()
+RunService.RenderStepped:Connect(function()
     if Noclip then
         for _,v in pairs(Host.Character:GetDescendants()) do
             if v:IsA'BasePart' and v.CanCollide then
@@ -21,7 +21,7 @@ function Noclip()
             end
         end
     end
-end
+end)
 
 function Noclipping(ActionName:string, Properties:EnumItem)
     if ActionName == 'Noclip' then
@@ -33,4 +33,3 @@ function Noclipping(ActionName:string, Properties:EnumItem)
 end
 
 ContextActionService:BindAction('Noclip', Noclipping, true, Enum.KeyCode[NoclipKey])
-RunService.RenderStepped:Connect(Noclip())
