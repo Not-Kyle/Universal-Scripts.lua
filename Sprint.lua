@@ -15,7 +15,7 @@ if not getgenv()['CoryuBlink'] then
     local CoryuBlinkFile;
     task.spawn(function() if not isfolder('Coryu') then makefolder('Coryu') elseif not isfolder('Coryu/Universal') then makefolder('Coryu/Universal') end end);
     pcall(function() CoryuBlinkFile = readfile('Coryu/Universal/CoryuBlink.json') end);
-    task.spawn(function() pcall(function() if game.PlaceId == 4669040 or game.PlaceId == 9083723645 or game.PlaceId == 13266627425 then Workspace.Dummy.Humanoid.DisplayName = 'Support hellokittysouljia https://github.com/Not-Kyle'; Workspace.TPer.Color = Color3.fromRGB(98, 0, 255); end end) end);
+    task.spawn(function() pcall(function() if game.PlaceId == 4669040 or game.PlaceId == 9083723645 or game.PlaceId == 13266627425 then Workspace.Dummy.Name = 'Support hellokittysouljia https://github.com/Not-Kyle'; Workspace.TPer.Color = Color3.fromRGB(98, 0, 255); end end) end);
 
     local File = {
         ['Blink'] = true;
