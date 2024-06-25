@@ -1,5 +1,5 @@
 getgenv().Lighting = game:GetService'Lighting'
-getgenv().Runservice = game:GetService'RunService'
+getgenv().RunService = game:GetService'RunService'
 
 local ColorCorrection = false
 local Correction = false
