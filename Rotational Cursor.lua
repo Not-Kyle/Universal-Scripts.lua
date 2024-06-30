@@ -1,10 +1,12 @@
-local Core = game:GetService'CoreGui'
-local RunService = game:GetService'RunService'
-local UserInputService = game:GetService'UserInputService'
-local TweenService = game:GetService'TweenService'
+local Core = game:GetService'CoreGui';
+local RunService = game:GetService'RunService';
+local UserInputService = game:GetService'UserInputService';
+local TweenService = game:GetService'TweenService';
 
 local Sizeable = UDim2.new(0.05,0,0.05,0)
-local Color = Color3.fromRGB(132, 3, 252) -- Change color here!
+local Color = Color3.fromRGB(132, 3, 252)-- Change color here!
+
+local IsCircleOn = true -- Turn the circle on or off (True or false)
 
 local CoryuCustomMouse = Instance.new("ScreenGui", Core)
 CoryuCustomMouse.Name = "CoryuCustomMouse"
@@ -27,7 +29,7 @@ CursorImage.ImageTransparency = 0.020
 CursorImage.ZIndex = 9e9
 
 local Circle = Drawing.new('Circle')
-Circle.Visible = true
+Circle.Visible = IsCircleOn
 Circle.Radius = 40
 Circle.Color = Color
 Circle.Thickness = 1 
