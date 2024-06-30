@@ -28,7 +28,7 @@ CursorImage.ZIndex = 9e9
 
 local Circle = Drawing.new('Circle')
 Circle.Visible = true
-Circle.Radius = 55
+Circle.Radius = 40
 Circle.Color = Color
 Circle.Thickness = 1 
 Circle.Filled = false
