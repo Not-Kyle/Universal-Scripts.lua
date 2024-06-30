@@ -3,7 +3,7 @@ local RunService = game:GetService'RunService'
 local UserInputService = game:GetService'UserInputService'
 local TweenService = game:GetService'TweenService'
 
-local Sizeable = UDim2.new(0.1,0,0.1,0)
+local Sizeable = UDim2.new(0.05,0,0.05,0)
 local Color = Color3.fromRGB(132, 3, 252) -- Change color here!
 
 local CoryuCustomMouse = Instance.new("ScreenGui", Core)
@@ -19,7 +19,7 @@ CursorImage.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 CursorImage.BackgroundTransparency = 1.000
 CursorImage.BorderColor3 = Color3.fromRGB(0, 0, 0)
 CursorImage.BorderSizePixel = 0
-CursorImage.Size = UDim2.new(0,38,0,38)
+CursorImage.Size = UDim2.new(0,35,0,35)
 CursorImage.Visible = true
 CursorImage.Image = "rbxassetid://316279304"
 CursorImage.ImageColor3 = Color
@@ -37,7 +37,7 @@ Circle.Transparency = 1
 local Ratio = Instance.new("UIAspectRatioConstraint", CursorImage)
 
 RunService.Stepped:Connect(function()
-	Circle.Position = Vector2.new(UserInputService:GetMouseLocation().X, UserInputService:GetMouseLocation().Y)
+    Circle.Position = Vector2.new(UserInputService:GetMouseLocation().X, UserInputService:GetMouseLocation().Y)
     CursorImage.Position = UDim2.new(0,UserInputService:GetMouseLocation().X,0, UserInputService:GetMouseLocation().Y-35)
 end)
 
