@@ -10,6 +10,7 @@ local CoryuCustomMouse = Instance.new("ScreenGui", Core)
 CoryuCustomMouse.Name = "CoryuCustomMouse"
 CoryuCustomMouse.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 CoryuCustomMouse.ResetOnSpawn = false
+CoryuCustomMouse.IgnoreGuiInset = true
 
 local CursorImage = Instance.new("ImageLabel", CoryuCustomMouse)
 CursorImage.Name = "CursorImage"
