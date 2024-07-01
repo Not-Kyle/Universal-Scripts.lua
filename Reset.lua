@@ -4,7 +4,7 @@ getgenv().ContextService = game:GetService'ContextActionService';
 
 local Key = 'F2'; -- Change key to anything
 
-local Method = 'Enum' -- You can change it to 'Enum, Health, Torso, Head' -- > DM ME @killserver IF YOU KNOW OF ANY MORE METHODS I CAN ADD < --
+local Method = 'Enum' -- You can change it to 'Enum, Health, Torso, Head, Joints' -- > DM ME @killserver IF YOU KNOW OF ANY MORE METHODS I CAN ADD < --
 
 function KillCharacter(Type:string)
     if Host and Host.Character then
