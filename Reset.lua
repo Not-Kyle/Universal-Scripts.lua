@@ -20,6 +20,8 @@ function KillCharacter(Type:string)
             end
         elseif Type == 'Head' then
             Host.Character:FindFirstChild'Head':Destroy()
+        elseif Type == 'Joints' then
+            Host.Character:BreakJoints()
         end
     end
 end
