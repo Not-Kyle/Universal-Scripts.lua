@@ -1,4 +1,4 @@
-local route = setmetatable({} {
+local route = setmetatable({}, {
     __index = function(self, args)
         return game.GetService(game, args);
     end
