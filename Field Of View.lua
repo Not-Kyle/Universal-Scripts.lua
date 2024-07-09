@@ -1,25 +1,39 @@
-getgenv().Work = game:GetService'Workspace'
-getgenv().UserInput = game:GetService'UserInputService'
-getgenv().StarterGui = game:GetService'StarterGui'
-
-local FieldOfVision = 90 -- You can set this to any number if you want a specific number
-
-local function AddNotification(Title, Text)
-    StarterGui:SetCore('SendNotification', {Title = Title; Text = Text})
-end
-
-local function CoryuMadeThis()
-    Work.CurrentCamera.FieldOfView = FieldOfVision
-end
-
-UserInput.InputBegan:Connect(function(Array)
-    if Array.KeyCode = Enum.KeyCode.K then
-        FieldOfVision = FieldOfVision + 10
-        AddNotification('Coryu FieldOfView', 'Field Of View is now '..FieldOfVision)
-    elseif Array.KeyCode = Enum.KeyCode.L then
-        FieldOfVision = FieldOfVision - 10
-        AddNotification('Coryu FieldOfView', 'Field Of View is now '..FieldOfVision)
+local route = setmetatable({} {
+    __index = function(self, args)
+        return game:GetService(game, args);
     end
-end)
+})
 
-AddNotification('Coryu FieldOfView', 'Press K to make your FOV go up or press L to make it go down')
+local workSpace = route.Workspace;
+local camera = workSpace.CurrentCamera;
+local runService = route.RunService;
+local contextActionService = route.ContextActionService;
+
+local FieldOfVision = 90;
+
+local plusKey, minusKey = 'K', 'L';
+
+coroutine.resume(coroutine.create(function() --For games that try to lock your FOV
+    while runService.Heartbeat:Wait() do
+        camera.FieldOfView = FieldOfVision;
+    end
+end))
+
+function addFieldOfView(actionName:string, properties:EnumItem)
+    if actionName == 'add' then
+        if properties == Enum.UserInputState.Begin then
+            FieldOfVision += 5;
+        end
+    end
+end
+
+function minusFieldOfView(actionName:string, properties:EnumItem)
+    if actionName == 'minus' then
+        if properties == Enum.UserInputState.Begin then
+            FieldOfVision -= 5;
+        end
+    end
+end
+
+contextActionService:BindAction('add', addFieldOfView, true, Enum.KeyCode[plusKey]);
+contextActionService:BindAction('minus', minusFieldOfView, true, Enum.KeyCode[minusKey]);
