@@ -1,23 +1,29 @@
 --If Taken, Give Credits @hellokittysouljia or @killserver on discord or https://github.com/Not-Kyle
-if not getgenv()['CoryuBlink'] then
-    getgenv()['CoryuBlink'] = true
+if not getgenv()['CoryuSprint'] then
+    getgenv()['CoryuSprint'] = true
+    
+    local trace = setmetatable({}, {
+        __index = function(self, args)
+            return game.GetService(game, args);
+        end
+    })
 
-    getgenv().Players = game:GetService'Players';
-    getgenv().Host = Players.LocalPlayer;
-    getgenv().RunService = game:GetService'RunService';
-    getgenv().Vector = Vector3.new;
-    getgenv().UserInput = game:GetService'UserInputService';
-    getgenv().Http = game:GetService'HttpService';
-    getgenv().Workspace = game:GetService'Workspace';
-    getgenv().Version = 2;
-    getgenv().StarterGui = game:GetService'StarterGui'
-    getgenv().UserNotifications = function(title, text) StarterGui:SetCore('SendNotification', {Title = title; Text = text;}) end;
-    local CoryuBlinkFile;
+    getgenv().players = trace.Players;
+    getgenv().host = players.LocalPlayer;
+    getgenv().runService = trace.RunService;
+    getgenv().vector = Vector3.new;
+    getgenv().userInput = trace.UserInputService;
+    getgenv().http = trace.HttpService;
+    getgenv().workspace = trace.Workspace;
+    getgenv().scriptName, version = 'hellokittysouljias', 2.1;
+    getgenv().starterGui = trace.StarterGui;
+    getgenv().userNotifications = function(title, text) starterGui:SetCore('SendNotification', {Title = title; Text = text;}) end;
+    local coryuBlinkFile;
     task.spawn(function() if not isfolder('Coryu') then makefolder('Coryu') elseif not isfolder('Coryu/Universal') then makefolder('Coryu/Universal') end end);
-    pcall(function() CoryuBlinkFile = readfile('Coryu/Universal/CoryuBlink.json') end);
-    task.spawn(function() pcall(function() if game.PlaceId == 4669040 or game.PlaceId == 9083723645 or game.PlaceId == 13266627425 then Workspace.Dummy.Name = 'Support hellokittysouljia https://github.com/Not-Kyle'; Workspace.TPer.Color = Color3.fromRGB(98, 0, 255); end end) end);
+    pcall(function() coryuBlinkFile = readfile('Coryu/Universal/CoryuBlink.json') end);
+    task.spawn(function() pcall(function() if game.PlaceId == 455366377 or workspace:FindFirstChild'TPer' then scriptName = 'hellokittysouljias Blink'; else scriptName = 'hellokittysouljias Sprint'; end end) end);
 
-    local File = {
+    local file = {
         ['Blink'] = true;
         ['Blinking'] = false;
         ['BlinkSpeed'] = 8;
@@ -25,7 +31,7 @@ if not getgenv()['CoryuBlink'] then
         ['Prefix'] = '-';
         ['Method'] = 'md';
     };
-    local Movement = {
+    local movement = {
         ['W'] = false;
         ['A'] = false;
         ['S'] = false;
@@ -33,58 +39,58 @@ if not getgenv()['CoryuBlink'] then
     };
 
     coroutine.resume(coroutine.create(function()
-        if CoryuBlinkFile then
-            CoryuBlinkFile = Http:JSONDecode(readfile'Coryu/Universal/CoryuBlink.json')
-            for i,v in next, File do
-                File[i] = CoryuBlinkFile[i]
+        if coryuBlinkFile then
+            coryuBlinkFile = http:JSONDecode(readfile'Coryu/Universal/CoryuBlink.json')
+            for i,v in next, file do
+                file[i] = coryuBlinkFile[i]
             end
-            writefile('Coryu/Universal/CoryuBlink.json', Http:JSONEncode(File))
+            writefile('Coryu/Universal/CoryuBlink.json', http:JSONEncode(file))
         else
-            CoryuBlinkFile = writefile('Coryu/Universal/CoryuBlink.json', Http:JSONEncode(File))
+            coryuBlinkFile = writefile('Coryu/Universal/CoryuBlink.json', http:JSONEncode(file))
         end
     end))
 
-    local function WriteExe()
+    local function writeExe()
         if writefile and readfile then
-            writefile('Coryu/Universal/CoryuBlink.json', Http:JSONEncode(File))
+            writefile('Coryu/Universal/CoryuBlink.json', http:JSONEncode(file))
         else
             return nil
         end
     end
 
-    RunService.RenderStepped:Connect(function()
-        local HumanoidRootPart = Host.Character:FindFirstChild'HumanoidRootPart'
-        if File.Blink then
-            if File.Blinking then
-                if Host and Host.Character then
-                    if File.Method == 'md' or File.Method == 'movedirection' then
+    runService.RenderStepped:Connect(function()
+        local humanoidRootPart = host.Character:FindFirstChild'HumanoidRootPart'
+        if file.Blink then
+            if file.Blinking then
+                if host and host.Character then
+                    if file.Method == 'md' or file.Method == 'movedirection' then
                         debug.profilebegin('Coryu::Blink::MoveDirection')
-                            HumanoidRootPart.CFrame = HumanoidRootPart.CFrame + Vector(
-                                Host.Character:FindFirstChild'Humanoid'.MoveDirection.X * File.BlinkSpeed / 5, 0, Host.Character:FindFirstChild'Humanoid'.MoveDirection.Z * File.BlinkSpeed / 5
+                            humanoidRootPart.CFrame = humanoidRootPart.CFrame + vector(
+                                host.Character:FindFirstChild'Humanoid'.MoveDirection.X * file.BlinkSpeed / 5, 0, host.Character:FindFirstChild'Humanoid'.MoveDirection.Z * file.BlinkSpeed / 5
                             )
-                            debug.profileend()
-                    elseif File.Method == 'cf' or File.Method == 'cframe' then
+                        debug.profileend()
+                    elseif file.Method == 'cf' or file.Method == 'cframe' then
                         debug.profilebegin('Coryu::Blink::CFrame')
-                            if Movement.W then
-                                HumanoidRootPart.CFrame = HumanoidRootPart.CFrame * CFrame.new(0,0,-File.BlinkSpeed/4)
+                            if movement.W then
+                                humanoidRootPart.CFrame = humanoidRootPart.CFrame * CFrame.new(0,0,-file.BlinkSpeed/5)
                             end
-                            if Movement.A then
-                                HumanoidRootPart.CFrame = HumanoidRootPart.CFrame * CFrame.new(-File.BlinkSpeed/4,0,0)
+                            if movement.A then
+                                humanoidRootPart.CFrame = humanoidRootPart.CFrame * CFrame.new(-file.BlinkSpeed/5,0,0)
                             end
-                            if Movement.S then
-                                HumanoidRootPart.CFrame = HumanoidRootPart.CFrame * CFrame.new(0,0,File.BlinkSpeed/4)
+                            if movement.S then
+                                humanoidRootPart.CFrame = humanoidRootPart.CFrame * CFrame.new(0,0,file.BlinkSpeed/5)
                             end
-                            if Movement.D then
-                                HumanoidRootPart.CFrame = HumanoidRootPart.CFrame * CFrame.new(File.BlinkSpeed/4,0,0)
+                            if movement.D then
+                                humanoidRootPart.CFrame = humanoidRootPart.CFrame * CFrame.new(file.BlinkSpeed/5,0,0)
                             end
                         debug.profileend()
-                    elseif File.Method == 'lv' or File.Method == 'lookvector' then
+                    elseif file.Method == 'lv' or file.Method == 'lookvector' then
                         debug.profilebegin('Coryu::Blink::LookVector')
-                            HumanoidRootPart.Velocity = HumanoidRootPart.CFrame.LookVector * File.BlinkSpeed * 30
+                            humanoidRootPart.Velocity = humanoidRootPart.CFrame.LookVector * file.BlinkSpeed * 25
                         debug.profileend()
-                    elseif File.Method == 'ws' or File.Method == 'walkspeed' then
+                    elseif file.Method == 'ws' or file.Method == 'walkspeed' then
                         debug.profilebegin('Coryu::Blink::WalkSpeed')
-                            Workspace[Host.Name].Character:FindFirstChildOfClass'Humanoid'.WalkSpeed = File.BlinkSpeed * 25
+                            workspace[host.Name].Character:FindFirstChildOfClass'Humanoid'.WalkSpeed = file.BlinkSpeed * 25
                         debug.profileend()
                     end
                 end
@@ -92,56 +98,56 @@ if not getgenv()['CoryuBlink'] then
         end
     end)
 
-    Host.Chatted:Connect(function(UserCommand:string)
-        if string.sub(string.lower(UserCommand),1,4) == (File.Prefix..'bs ') then
-            File.BlinkSpeed = string.sub(UserCommand,5,6)
-            UserNotifications('Coryu Blink', 'BlinkSpeed is now '..tonumber(File.BlinkSpeed))
-            WriteExe()
-        elseif string.sub(string.lower(UserCommand),1,5) == (File.Prefix..'key ') then
-            File.Toggle = string.sub(string.upper(UserCommand),6,6)
-            UserNotifications('Coryu Blink', 'Blink hotkey has been updated to '..tostring(File.Toggle))
-            WriteExe()
-        elseif string.sub(string.lower(UserCommand),1,8) == (File.Prefix..'prefix ') then
-            File.Prefix = string.sub(UserCommand,9,9)
-            UserNotifications('Coryu Blink', 'Blink Prefix has been set to \''..File.Prefix..'\'')
-            WriteExe()
-        elseif string.sub(string.lower(UserCommand),1,8) == (File.Prefix..'method ') then
-            File.Method = string.sub(UserCommand,9,21)
-            UserNotifications('Coryu Blink', 'Method has been set to '..tostring(File.Method))
-            WriteExe()
+    host.Chatted:Connect(function(userCommands)
+        if string.sub(string.lower(userCommands),1,4) == (file.Prefix..'bs ') then
+            file.BlinkSpeed = string.sub(userCommands,5,6)
+            userNotifications('Coryu Sprint', 'Sprint Speed is now '..tonumber(file.BlinkSpeed))
+            writeExe()
+        elseif string.sub(string.lower(userCommands),1,5) == (file.Prefix..'key ') then
+            file.Toggle = string.sub(string.upper(userCommands),6,6)
+            userNotifications('Coryu Sprint', 'Sprint Keybind has been updated to '..tostring(file.Toggle))
+            writeExe()
+        elseif string.sub(string.lower(userCommands),1,8) == (file.Prefix..'prefix ') then
+            file.Prefix = string.sub(userCommands,9,9)
+            userNotifications('Coryu Sprint', 'Sprint Prefix has been set to \''..file.Prefix..'\'')
+            writeExe()
+        elseif string.sub(string.lower(userCommands),1,8) == (file.Prefix..'method ') then
+            file.Method = string.sub(userCommands,9,21)
+            userNotifications('Coryu Sprint', 'Sprint Method has been set to '..tostring(file.Method))
+            writeExe()
         end
     end)
 
-    UserInput.InputBegan:Connect(function(Args:EnumItem, Chat)
-        if Args.KeyCode == Enum.KeyCode.LeftShift then
-            File.Blinking = true
-        elseif Chat then
+    userInput.InputBegan:Connect(function(args, chat)
+        if args.KeyCode == Enum.KeyCode.LeftShift then
+            file.Blinking = true
+        elseif chat then
             return nil
-        elseif Args.KeyCode == Enum.KeyCode[File.Toggle] then
-            File.Blink = not File.Blink
-            UserNotifications('Coryu Blink', 'Blink is now '..tostring(File.Blink))
-        elseif Args.KeyCode == Enum.KeyCode.W then
-            Movement.W = true
-        elseif Args.KeyCode == Enum.KeyCode.A then
-            Movement.A = true
-        elseif Args.KeyCode == Enum.KeyCode.S then
-            Movement.S = true
-        elseif Args.KeyCode == Enum.KeyCode.D then
-            Movement.D = true
+        elseif args.KeyCode == Enum.KeyCode[file.Toggle] then
+            file.Blink = not file.Blink
+            userNotifications('Coryu Sprint', 'Sprint is now '..tostring(file.Blink))
+        elseif args.KeyCode == Enum.KeyCode.W then
+            movement.W = true
+        elseif args.KeyCode == Enum.KeyCode.A then
+            movement.A = true
+        elseif args.KeyCode == Enum.KeyCode.S then
+            movement.S = true
+        elseif args.KeyCode == Enum.KeyCode.D then
+            movement.D = true
         end
     end)
 
-    UserInput.InputEnded:Connect(function(Args:EnumItem)
-        if Args.KeyCode == Enum.KeyCode.LeftShift then
-            File.Blinking = false;
-        elseif Args.KeyCode == Enum.KeyCode.W then
-            Movement.W = false
-        elseif Args.KeyCode == Enum.KeyCode.A then
-            Movement.A = false
-        elseif Args.KeyCode == Enum.KeyCode.S then
-            Movement.S = false
-        elseif Args.KeyCode == Enum.KeyCode.D then
-            Movement.D = false
+    userInput.InputEnded:Connect(function(args)
+        if args.KeyCode == Enum.KeyCode.LeftShift then
+            file.Blinking = false;
+        elseif args.KeyCode == Enum.KeyCode.W then
+            movement.W = false
+        elseif args.KeyCode == Enum.KeyCode.A then
+            movement.A = false
+        elseif args.KeyCode == Enum.KeyCode.S then
+            movement.S = false
+        elseif args.KeyCode == Enum.KeyCode.D then
+            movement.D = false
         end
     end)
 
@@ -149,10 +155,17 @@ if not getgenv()['CoryuBlink'] then
         Prefix '-'
 
         COMMANDS = {
-            -Bs (Number)
-            -Key (Character)
-            -Prefix (Any)
+            -Bs (Number) 
+                // Changes your speed
+
+            -Key (Character) 
+                // Changes your keybind
+
+            -Prefix (Any) 
+                // Changes your prefix
+
             -Method (Md, Cf, Lv, Ws) or (MoveDirection, CFrame, LookVector, WalkSpeed)
+                // Changes how you move or function
         }
         
         Example: -BS 5
@@ -164,7 +177,7 @@ if not getgenv()['CoryuBlink'] then
 
         by hellokittysouljia! If questions or help needed message @killserver on discord
     ]])
-    print('Toggle Key '..File.Toggle)
+    print('Toggle Key '..file.Toggle)
 
-    UserNotifications('Coryu Blink', 'Made by @hellokittysouljia on RBLX. Press F9 for help!')
+    userNotifications(scriptName..' V'..version, 'Made by @hellokittysouljia on RBLX. Press F9 for help!')
 end
