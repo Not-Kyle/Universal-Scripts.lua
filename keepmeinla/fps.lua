@@ -1,3 +1,15 @@
+local coreGui = game:GetService'CoreGui';
+local runService = game:GetService'RunService';
+
+local renderStepped = runService.RenderStepped;
+local round = math.round;
+
+local hellokittysouljia = Instance.new('ScreenGui', coreGui)
+hellokittysouljia.Name = 'hellokittysouljia'
+hellokittysouljia.ResetOnSpawn = false
+hellokittysouljia.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+hellokittysouljia.IgnoreGuiInset = true
+
 local fpsCounter = Instance.new("TextLabel", hellokittysouljia)
 fpsCounter.Name = "fpsCounter"
 fpsCounter.AnchorPoint = Vector2.new(0, 1)
