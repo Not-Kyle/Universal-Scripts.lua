@@ -3,7 +3,7 @@ local runService = game:GetService'RunService';
 local renderStepped = runService.RenderStepped;
 local round = math.round;
 
-local hellokittysouljia = loadstring(game:HttpGet(''))();
+local hellokittysouljia = loadstring(game:HttpGet('https://raw.githubusercontent.com/Not-Kyle/Universal-Scripts.lua/refs/heads/main/keepmeinla/screengui.lua'))();
 
 local fpsCounter = Instance.new("TextLabel", hellokittysouljia)
 fpsCounter.Name = "fpsCounter"
