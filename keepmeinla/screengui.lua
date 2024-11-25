@@ -1,7 +1,7 @@
 local coreGui = game:GetService'CoreGui';
 
-local hellokittysouljia = Instance.new('ScreenGui', coreGui)
-hellokittysouljia.Name = 'hellokittysouljia'
-hellokittysouljia.ResetOnSpawn = false
-hellokittysouljia.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-hellokittysouljia.IgnoreGuiInset = true
+local ui = Instance.new('ScreenGui', coreGui)
+ui.Name = 'hellokittysouljia'
+ui.ResetOnSpawn = false
+ui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+ui.IgnoreGuiInset = true
