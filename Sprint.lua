@@ -90,7 +90,7 @@ if not getgenv()['CoryuSprint'] then
                         debug.profileend()
                     elseif file.Method == 'ws' or file.Method == 'walkspeed' then
                         debug.profilebegin('Coryu::Blink::WalkSpeed')
-                            workspace[host.Name].Character:FindFirstChildOfClass'Humanoid'.WalkSpeed = file.BlinkSpeed * 25
+                            workspace[host.Name]:FindFirstChildOfClass'Humanoid'.WalkSpeed = file.BlinkSpeed * 25
                         debug.profileend()
                     end
                 end
