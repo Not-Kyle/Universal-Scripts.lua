@@ -3,8 +3,11 @@ if not getgenv()['CoryuSprint'] then
     getgenv()['CoryuSprint'] = true
     
     local trace = setmetatable({}, {
-        __index = function(self, args)
-            return game.GetService(game, args);
+        __index = function(self: Instance, ...)
+            local Arguments = {...}
+            rawget(self, Arguments, Arguments[1])
+            
+            return game.GetService(game, Arguments[1]);
         end
     })
 
@@ -15,7 +18,7 @@ if not getgenv()['CoryuSprint'] then
     getgenv().userInput = trace.UserInputService;
     getgenv().http = trace.HttpService;
     getgenv().workspace = trace.Workspace;
-    getgenv().scriptName, version = 'hellokittysouljias', 2.1;
+    getgenv().scriptName, version = 'hellokittysouljias', 2.2;
     getgenv().starterGui = trace.StarterGui;
     getgenv().userNotifications = function(title, text) starterGui:SetCore('SendNotification', {Title = title; Text = text;}) end;
     local coryuBlinkFile;
