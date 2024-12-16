@@ -20,7 +20,7 @@ local camlock = false;
 
 local camlockTarget;
 
-local camlockPart = 'head';
+local camlockPart = 'Head';
 local camlockKeybind = 'C';
 local camlockTargetKeybind = 'V';
 
@@ -34,11 +34,13 @@ end
 
 function IsRenderStepped()
     debug.profilebegin('[Souljias] :: RS')
-    repeat task.wait() until camlockTarget
-    local setCamlockTarget = players[camlockTarget.Name]
 
-    if camlock and setCamlockTarget and setCamlockTarget.Character and setCamlockTarget.Character:FindFirstChild(camlockPart) then
-        camera.CFrame = cframe(camera.CFrame.p, setCamlockTarget.Character:FindFirstChild(camlockPart).CFrame.p)
+    if camlock and camlockTarget then
+        local setCamlockTarget = players[camlockTarget.Name]
+
+        if setCamlockTarget and setCamlockTarget.Character and setCamlockTarget.Character:FindFirstChild(camlockPart) then
+            camera.CFrame = cframe(camera.CFrame.p, setCamlockTarget.Character:FindFirstChild(camlockPart).CFrame.p)
+        end
     end
     debug.profileend()
 end
@@ -95,7 +97,7 @@ function indexKeybinds(Arguments: EnumItem, FindChat: string)
         
         if setPlayer then
         camlockTarget = setPlayer
-           AddNoitifcations('Camlock Target', 'Camlock Target is now '..players[camlockTarget.Name])
+           AddNoitifcations('Camlock Target', 'Camlock Target is now '..camlockTarget.Name)
         end
     end
 end
