@@ -34,6 +34,7 @@ end
 
 function IsRenderStepped()
     debug.profilebegin('[Souljias] :: RS')
+    repeat task.wait() until camlockTarget
     local setCamlockTarget = players[camlockTarget.Name]
 
     if camlock and setCamlockTarget and setCamlockTarget.Character and setCamlockTarget.Character:FindFirstChild(camlockPart) then
