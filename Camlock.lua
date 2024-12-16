@@ -80,7 +80,7 @@ function GetClosestPlayer() -- Just a better verison of that public getclosestpl
     return
 end
 
-function indexKeybinds(Arguments: string, FindChat: string)
+function indexKeybinds(Arguments: EnumItem, FindChat: string)
     if FindChat then
         return
     end
