@@ -90,8 +90,10 @@ function indexKeybinds(Arguments: string, FindChat: string)
     end
 
     if Arguments.KeyCode == Enum.KeyCode[camlockTargetKeybind] then
-        camlockTarget = GetClosestPlayer()
-        if camlockTarget then
+        local setPlayer = GetClosestPlayer()
+        
+        if setPlayer then
+        camlockTarget = setPlayer
            AddNoitifcations('Camlock Target', 'Camlock Target is now '..players[camlockTarget.Name])
         end
     end
