@@ -7,7 +7,7 @@ local trace = setmetatable({}, {
     end
 })
 
-local workspace, runService, players, userInput, starterGui = trace.Workspace, trace.RunService, trace.Players, trace.UserInput, trace.StarterGui;
+local workspace, runService, players, userInput, starterGui = trace.Workspace, trace.RunService, trace.Players, trace.UserInputService, trace.StarterGui;
 local round, min = math.round, math.min;
 local ray, cframe, vector3 = clonefunction(Ray.new), clonefunction(CFrame.new), clonefunction(Vector3.new);
 local insert, clear, find = clonefunction(table.insert), clonefunction(table.clear), clonefunction(table.find);
