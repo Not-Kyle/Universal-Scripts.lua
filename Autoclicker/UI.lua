@@ -86,7 +86,7 @@ function Window:SetWindow(Scriptname: string)
             error('Axis X and Y must be numbers', 0)
         end
 
-        if not Network.Title then Network.Title = 'Toggle' end
+        if not type(Network.Title) == 'string' then Network.Title = 'Toggle' end
 
         Network.Func = Network.Func or function() end
 
@@ -118,7 +118,7 @@ function Window:SetWindow(Scriptname: string)
         TitleOfToggle.Position = UDim2.new(1, 0, -0.40000000, 0)
         TitleOfToggle.Size = UDim2.new(0, 70, 0, 18)
         TitleOfToggle.Font = Enum.Font.Code
-        TitleOfToggle.Text = Network.Title
+        TitleOfToggle.Text = ' - '..Network.Title
         TitleOfToggle.TextColor3 = Color3.fromRGB(225, 225, 225)
         TitleOfToggle.TextSize = 14.000
         TitleOfToggle.TextStrokeTransparency = 0.500
