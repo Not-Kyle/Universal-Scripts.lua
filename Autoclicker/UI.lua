@@ -14,6 +14,8 @@ hellokittysouljia.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 hellokittysouljia.IgnoreGuiInset = true
 
 function Window:SetWindow(Scriptname: string)
+    if not Scriptname or not type(Scriptname) == 'string' then Scriptname = 'hellokittysouljia' end
+
     getgenv().Outer = Instance.new("Frame")
     Outer.Name = "Outer"
     Outer.Parent = hellokittysouljia
@@ -84,7 +86,7 @@ function Window:SetWindow(Scriptname: string)
             error('Axis X and Y must be numbers', 0)
         end
 
-        if not Network.Title then Network.Title = 'hellokittysouljia' end
+        if not Network.Title then Network.Title = 'Toggle' end
 
         Network.Func = Network.Func or function() end
 
