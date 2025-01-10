@@ -82,7 +82,7 @@ function Window:SetWindow(Scriptname: string)
             Network.Func = Arguments[5]
         end
 
-        if type(Network.PosX) ~= 'number' or type(Network.PosY) ~= 'number' then
+        if not type(Network.PosX) == 'number' or not type(Network.PosY) == 'number' then
             error('Axis X and Y must be numbers', 0)
         end
 
