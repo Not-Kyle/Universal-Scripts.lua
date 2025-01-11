@@ -36,6 +36,30 @@ function Window:SetWindow(Scriptname: string)
     Inner.Position = UDim2.new(0.00657894742, 0, 0.00980392192, 0)
     Inner.Size = UDim2.new(0, 300, 0, 200)
 
+    local SetInnerBox = Instance.new("Frame")
+    SetInnerBox.Name = "SetInnerBox"
+    SetInnerBox.Parent = Inner
+    SetInnerBox.BackgroundColor3 = Color3.fromRGB(19, 15, 21)
+    SetInnerBox.BorderColor3 = Color3.fromRGB(39, 36, 40)
+    SetInnerBox.Position = UDim2.new(0.023, 0, 0.116499998, 0)
+    SetInnerBox.Size = UDim2.new(0, 286, 0, 170)
+
+    local Bounds = Instance.new("Frame")
+    Bounds.Name = "Bounds"
+    Bounds.Parent = SetInnerBox
+    Bounds.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Bounds.BackgroundTransparency = 1.000
+    Bounds.BorderColor3 = Color3.fromRGB(0, 0, 0)
+    Bounds.BorderSizePixel = 0
+    Bounds.Position = UDim2.new(0.0279720277, 0, 0.0647058859, 0)
+    Bounds.Size = UDim2.new(0, 270, 0, 150)
+
+    local UIListLayout = Instance.new("UIListLayout")
+    UIListLayout.Parent = Bounds
+    UIListLayout.FillDirection = Enum.FillDirection.Vertical
+    UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    UIListLayout.Padding = UDim.new(0,14)
+
     local Title = Instance.new("TextLabel")
     Title.Name = "Title"
     Title.Parent = Inner
@@ -43,7 +67,7 @@ function Window:SetWindow(Scriptname: string)
     Title.BackgroundTransparency = 1.000
     Title.BorderColor3 = Color3.fromRGB(0, 0, 0)
     Title.BorderSizePixel = 0
-    Title.Position = UDim2.new(0.0233333334, 0, 0.00499999989, 0)
+    Title.Position = UDim2.new(0.023, 0, 0.005, 0)
     Title.Size = UDim2.new(0, 273, 0, 20)
     Title.Font = Enum.Font.Code
     Title.Text = Scriptname or ''
@@ -59,7 +83,7 @@ function Window:SetWindow(Scriptname: string)
     ExitButton.BackgroundTransparency = 1.000
     ExitButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
     ExitButton.BorderSizePixel = 0
-    ExitButton.Position = UDim2.new(0.933333337, 0, 0.00499999989, 0)
+    ExitButton.Position = UDim2.new(0.94, 0, 0.005, 0)
     ExitButton.Size = UDim2.new(0, 20, 0, 20)
     ExitButton.Font = Enum.Font.Code
     ExitButton.Text = "X"
@@ -67,35 +91,18 @@ function Window:SetWindow(Scriptname: string)
     ExitButton.TextSize = 15.000
     ExitButton.TextStrokeTransparency = 0.500
 
-    function Structure:SetToggle(...)
-        local Arguments = { ... }
-        local Network = {};
+    function Structure:SetToggle(ToggleTitle: any, IsSet: boolean, Func: any)
         local SubNetwork = {}
+        Func = Func or function() end
 
-        if type(...) == 'table' then
-            Network = ...
-        else
-            Network.PosX = Arguments[1]
-            Network.PosY = Arguments[2]
-            Network.Title = Arguments[3]
-            Network.IsSet = Arguments[4]
-            Network.Func = Arguments[5]
-        end
-
-        if not type(Network.PosX) == 'number' or not type(Network.PosY) == 'number' then
-            error('Axis X and Y must be numbers', 0)
-        end
-
-        if not type(Network.Title) == 'string' then Network.Title = 'Toggle' end
-
-        Network.Func = Network.Func or function() end
+        if not ToggleTitle or not type(ToggleTitle) == 'string' then ToggleTitle = 'Toggle' end
 
         local ToggleButton = Instance.new("TextButton")
         ToggleButton.Name = "ToggleButton"
-        ToggleButton.Parent = Inner
+        ToggleButton.Parent = Bounds
         ToggleButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
         ToggleButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
-        ToggleButton.Position = UDim2.new(0.0466666669, 0, 0.174999997, 0)
+        ToggleButton.Position = UDim2.new(0.047, 0, 0.175, 0)
         ToggleButton.Size = UDim2.new(0, 10, 0, 10)
         ToggleButton.Font = Enum.Font.SourceSans
         ToggleButton.Text = ""
@@ -115,18 +122,18 @@ function Window:SetWindow(Scriptname: string)
         TitleOfToggle.BackgroundTransparency = 1.000
         TitleOfToggle.BorderColor3 = Color3.fromRGB(0, 0, 0)
         TitleOfToggle.BorderSizePixel = 0
-        TitleOfToggle.Position = UDim2.new(1, 0, -0.40000000, 0)
+        TitleOfToggle.Position = UDim2.new(1, 0, -0.4, 0)
         TitleOfToggle.Size = UDim2.new(0, 70, 0, 18)
         TitleOfToggle.Font = Enum.Font.Code
-        TitleOfToggle.Text = ' - ' .. Network.Title
+        TitleOfToggle.Text = ' - '..tostring(ToggleTitle)
         TitleOfToggle.TextColor3 = Color3.fromRGB(225, 225, 225)
         TitleOfToggle.TextSize = 14.000
         TitleOfToggle.TextStrokeTransparency = 0.500
         TitleOfToggle.TextXAlignment = Enum.TextXAlignment.Left
 
-        if Network.IsSet then
+        if IsSet then
             ToggleButton.BackgroundColor3 = Color3.fromRGB(225, 225, 225)
-        elseif not Network.IsSet then
+        elseif not IsSet then
             ToggleButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
         end
 
@@ -136,23 +143,24 @@ function Window:SetWindow(Scriptname: string)
 
             if not Callback and ToggleButton.BackgroundColor3 == Color3.fromRGB(225, 225, 225) then
                 ToggleButton.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-                Network.Func()
+
+                Func()
             elseif Callback and ToggleButton.BackgroundColor3 == Color3.fromRGB(40, 40, 40) then
                 ToggleButton.BackgroundColor3 = Color3.fromRGB(225, 225, 225)
-                Network.Func()
+
+                Func()
             end
         end)
 
         function SubNetwork:SetCounter(Start: number)
-            local StarterNumber = Start
-            shared.SetCounter = StarterNumber or 1
+            shared.SetCounter = Start or 1
     
             local Box = Instance.new("TextLabel")
             Box.Name = "Box"
             Box.Parent = ToggleButton
             Box.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
             Box.BorderColor3 = Color3.fromRGB(0, 0, 0)
-            Box.Position = UDim2.new(8.60000038, 0, -0.100000001, 0)
+            Box.Position = UDim2.new(8.6, 0, -0.1, 0)
             Box.Size = UDim2.new(0, 40, 0, 12)
             Box.Font = Enum.Font.Code
             while task.wait() do Box.Text = shared.SetCounter end
@@ -185,7 +193,7 @@ function Window:SetWindow(Scriptname: string)
             DownButton.BackgroundTransparency = 1.000
             DownButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
             DownButton.BorderSizePixel = 0
-            DownButton.Position = UDim2.new(1.125, 0, 0.583333313, 0)
+            DownButton.Position = UDim2.new(1.125, 0, 0.58, 0)
             DownButton.Size = UDim2.new(0, 10, 0, 10)
             DownButton.Image = "http://www.roblox.com/asset/?id=14596383084"
             DownButton.ImageColor3 = Color3.fromRGB(50, 50, 50)
@@ -209,6 +217,10 @@ function Window:SetWindow(Scriptname: string)
     end
 
     UserInput.InputBegan:Connect(SetInputs)
+
+    ExitButton.MouseButton1Down:Connect(function()
+        Outer.Visible = false
+    end)
 
     return Structure
 end
