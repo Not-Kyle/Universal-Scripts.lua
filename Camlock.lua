@@ -1,7 +1,7 @@
 local trace = setmetatable({}, {
     __index = function(self: Instance, ...)
         local Arguments = {...}
-        rawget(self, Arguments, Arguments[1])
+        rawget(self, Arguments)
         
         return game.GetService(game, Arguments[1]);
     end
