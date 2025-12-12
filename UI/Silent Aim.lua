@@ -49,6 +49,10 @@ function NewInstance(Type: string, Class: string, Properties: any)
 end
 
 local Mawborn = Instance.new('ScreenGui')
+Mawborn.Name = 'Mawborn';
+if syn and syn.product_gui then
+    syn.protect_gui(Mawborn)
+end
 Mawborn.ZIndexBehavior = Enum.ZIndexBehavior.Global;
 Mawborn.ResetOnSpawn = false;
 Mawborn.IgnoreGuiInset = true;
@@ -163,7 +167,6 @@ function Window:CreateWindow(WindowTitle: string)
             BackgroundColor3 = UI.AccentColor,
             BorderColor3 = Color3.fromRGB(27, 27, 27),
             Size = UDim2.new(0, 216, 0, 70),
-            AutomaticSize = Enum.AutomaticSize.Y,
         })
 
         local UIStrokeOuter3 = NewInstance('Instance', 'UIStroke', {
@@ -213,6 +216,18 @@ function Window:CreateWindow(WindowTitle: string)
             SortOrder = Enum.SortOrder.LayoutOrder,
             Padding = UDim.new(0.25, 0),
         })
+
+        function Addons:Resize()
+            local Size = 0;
+
+            for _, Element in next, Addons.Container:GetChildren() do
+                if not Element:IsA('UIListLayout') then
+                    Size = Size + Element.Size.Y.Offset;
+                end;
+            end;
+
+            Box.Size = UDim2.new(1, 0, 0, 30 + Size + 2);
+        end
 
         function Addons:AddDivider()
             local Divider = NewInstance('Instance', 'Frame', {
@@ -286,6 +301,8 @@ function Window:CreateWindow(WindowTitle: string)
                 TextYAlignment = Enum.TextYAlignment.Bottom,
             })
         end
+
+        Addons:Resize()
 
         return Addons
     end
