@@ -68,6 +68,7 @@ function Window:CreateWindow(WindowTitle: string)
         BorderSizePixel = 0,
         Position = UDim2.new(0.5, 0, 0.5, 0),
         Size = UDim2.new(0, 252, 0, 302),
+        Draggable = true
     })
 
     local Inner = NewInstance('Instance', 'Frame', {
@@ -147,6 +148,7 @@ function Window:CreateWindow(WindowTitle: string)
     local UIListLayout = NewInstance('Instance', 'UIListLayout', {
         Parent = Container,
         SortOrder = Enum.SortOrder.LayoutOrder,
+        Padding = UDim.new(0.01, 0),
     })
 
     function Library:AddBox(BoxTitle: string)
@@ -203,7 +205,13 @@ function Window:CreateWindow(WindowTitle: string)
             Size = UDim2.new(0, 204, 0, 30),
         })
 
-        function Addons:Divider()
+        local UIListLayout2 = NewInstance('Instance', 'UIListLayout', {
+            Parent = BoxContainer,
+            SortOrder = Enum.SortOrder.LayoutOrder,
+            Padding = UDim.new(0.25, 0),
+        })
+
+        function Addons:AddDivider()
             local Divider = NewInstance('Instance', 'Frame', {
                 Parent = BoxContainer,
                 BackgroundColor3 = UI.AccentColor,
@@ -222,7 +230,7 @@ function Window:CreateWindow(WindowTitle: string)
             })
         end
 
-        function Addons:Toggle(ToggleTitle: string)
+        function Addons:AddToggle(ToggleTitle: string)
             ToggleTitle = ToggleTitle or 'Unknown';
 
             local ToggleButton = NewInstance('Instance', 'TextButton', {
