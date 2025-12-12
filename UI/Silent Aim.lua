@@ -49,10 +49,6 @@ function NewInstance(Type: string, Class: string, Properties: any)
 end
 
 local Mawborn = Instance.new('ScreenGui')
-Mawborn.Name = 'Mawborn';
-if syn and syn.product_gui then
-    syn.protect_gui(Mawborn)
-end
 Mawborn.Parent = CoreGui;
 Mawborn.ZIndexBehavior = Enum.ZIndexBehavior.Global;
 Mawborn.ResetOnSpawn = false;
