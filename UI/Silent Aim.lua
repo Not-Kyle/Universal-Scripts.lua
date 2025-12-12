@@ -210,6 +210,7 @@ function Window:CreateWindow(WindowTitle: string)
             BorderColor3 = Color3.fromRGB(0, 0, 0),
             Position = UDim2.new(0.025, 0, 0.28, 0),
             Size = UDim2.new(0, 204, 0, 30),
+            AutomaticSize = Enum.AutomaticSize.Y,
         })
 
         local UIListLayout2 = NewInstance('Instance', 'UIListLayout', {
