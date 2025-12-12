@@ -54,7 +54,7 @@ if syn and syn.product_gui then
     syn.protect_gui(Mawborn)
 end
 Mawborn.ZIndexBehavior = Enum.ZIndexBehavior.Global;
-Mawborn.ResetOnSpawn = true;
+Mawborn.ResetOnSpawn = false;
 Mawborn.IgnoreGuiInset = true;
 
 if gethui() then
