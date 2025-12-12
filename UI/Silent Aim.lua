@@ -245,7 +245,7 @@ function Window:CreateWindow(WindowTitle: string)
                 BackgroundColor3 = UI.AccentColor,
                 BackgroundTransparency = 1,
                 BorderColor3 = Color3.fromRGB(0, 0, 0),
-                Size = UDim2.new(0, 100, 0, Size),
+                Size = UDim2.new(0, 1, 0, Size),
             })
         end
 
