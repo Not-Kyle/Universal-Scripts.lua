@@ -15,6 +15,7 @@ local Trace = setmetatable({}, {
 
 local CoreGui = Trace.CoreGui;
 local Players = Trace.Players;
+local UserInputService = Trace.UserInputService;
 
 local Window = {};
 
@@ -24,6 +25,7 @@ local UI = {
     BorderColor = Color3.fromRGB(255, 255, 255),
 
     Font = 'Code',
+    Keybind = 'RightControl',
 }
 
 function NewInstance(Type: string, Class: string, Properties: any)
@@ -275,6 +277,16 @@ function Window:CreateWindow(WindowTitle: string)
 
         return Addons
     end
+
+    UserInputService.InputBegan:Connect(function(Arguments: EnumItem, NilInput: string)
+        if Arguments.KeyCode == Enum.KeyCode[UI.Keybind] then
+            Outer.Visible = not Outer.Outer
+        end
+
+        if NilInput then
+            return
+        end
+    end)
 
     return Library
 end
