@@ -53,17 +53,15 @@ Mawborn.Name = 'Mawborn';
 if syn and syn.product_gui then
     syn.protect_gui(Mawborn)
 end
-Mawborn.Parent = CoreGui;
 Mawborn.ZIndexBehavior = Enum.ZIndexBehavior.Global;
 Mawborn.ResetOnSpawn = false;
 Mawborn.IgnoreGuiInset = true;
 
---[[
 if gethui() then
     Mawborn.Parent = gethui();
 else
     Mawborn.Parent = CoreGui;
-end]]
+end
 
 function Window:CreateWindow(WindowTitle: string)
     WindowTitle = WindowTitle or 'Unknown';
