@@ -50,15 +50,20 @@ end
 
 local Mawborn = Instance.new('ScreenGui')
 Mawborn.Name = 'Mawborn';
+if syn and syn.product_gui then
+    syn.protect_gui(Mawborn)
+end
 Mawborn.Parent = CoreGui;
 Mawborn.ZIndexBehavior = Enum.ZIndexBehavior.Global;
 Mawborn.ResetOnSpawn = false;
 Mawborn.IgnoreGuiInset = true;
 
---if gethui() then
-    --Mawborn.Parent = gethui();
---else
---end
+--[[
+if gethui() then
+    Mawborn.Parent = gethui();
+else
+    Mawborn.Parent = CoreGui;
+end]]
 
 function Window:CreateWindow(WindowTitle: string)
     WindowTitle = WindowTitle or 'Unknown';
@@ -207,7 +212,6 @@ function Window:CreateWindow(WindowTitle: string)
             BorderColor3 = Color3.fromRGB(0, 0, 0),
             Position = UDim2.new(0.025, 0, 0.28, 0),
             Size = UDim2.new(0, 204, 0, 30),
-            AutomaticSize = Enum.AutomaticSize.Y,
         })
 
         local UIListLayout2 = NewInstance('Instance', 'UIListLayout', {
