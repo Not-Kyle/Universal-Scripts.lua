@@ -72,13 +72,11 @@ function Window:CreateWindow(WindowTitle: string)
         Size = UDim2.new(0, 252, 0, 302),
     })
 
-    UserInputService.InputBegan:Connect(function(Arguments: EnumItem, NilInput: string)
+    UserInputService.InputBegan:Connect(function(Arguments: InputObject, NilInput: boolean)
+        if NilInput then return end
+
         if Arguments.KeyCode == Enum.KeyCode[UI.Keybind] then
             Outer.Visible = not Outer.Visible
-        end
-
-        if NilInput then
-            return
         end
     end)
 
