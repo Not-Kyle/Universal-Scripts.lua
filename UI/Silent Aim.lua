@@ -242,6 +242,7 @@ function Window:CreateWindow(WindowTitle: string)
 
             local Blank = NewInstance('Instance', 'Frame', {
                 Parent = BoxContainer,
+                BackgroundTransparency = 1,
                 Position = UDim2.new(0, 0, 1.02777779, 0),
                 Size = UDim2.new(0, 0, 0, Size),
             })
