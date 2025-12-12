@@ -280,7 +280,7 @@ function Window:CreateWindow(WindowTitle: string)
 
     UserInputService.InputBegan:Connect(function(Arguments: EnumItem, NilInput: string)
         if Arguments.KeyCode == Enum.KeyCode[UI.Keybind] then
-            Outer.Visible = not Outer.Outer
+            Outer.Visible = not Outer.Visible
         end
 
         if NilInput then
