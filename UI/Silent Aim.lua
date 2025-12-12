@@ -49,7 +49,7 @@ function NewInstance(Type: string, Class: string, Properties: any)
 end
 
 local Mawborn = Instance.new('ScreenGui')
-Mawborn.Parent = CoreGui;
+Mawborn.Parent = Players.LocalPlayer.PlayerGui -- holy fuck, I can not find it in CoreGui. -- Temp placement
 Mawborn.ZIndexBehavior = Enum.ZIndexBehavior.Global;
 Mawborn.ResetOnSpawn = false;
 Mawborn.IgnoreGuiInset = true;
