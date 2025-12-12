@@ -72,14 +72,6 @@ function Window:CreateWindow(WindowTitle: string)
         Size = UDim2.new(0, 252, 0, 302),
     })
 
-    UserInputService.InputBegan:Connect(function(Arguments: InputObject, NilInput: boolean)
-        if NilInput then return end
-
-        if Arguments.KeyCode == Enum.KeyCode[UI.Keybind] then
-            Outer.Visible = not Outer.Visible
-        end
-    end)
-
     local Inner = NewInstance('Instance', 'Frame', {
         Parent = Outer,
         BackgroundColor3 = UI.ScriptColor,
@@ -284,6 +276,14 @@ function Window:CreateWindow(WindowTitle: string)
 
         return Addons
     end
+
+    UserInputService.InputBegan:Connect(function(Arguments: InputObject, NilInput: boolean)
+        if NilInput then return end
+
+        if Arguments.KeyCode == Enum.KeyCode[UI.Keybind] then
+            Outer.Visible = not Outer.Visible
+        end
+    end)
 
     return Library
 end
