@@ -220,7 +220,7 @@ function Window:CreateWindow(WindowTitle: string)
         function Addons:Resize()
             local Size = 0;
 
-            for _, Element in next, Addons.Container:GetChildren() do
+            for _, Element in next, BoxContainer:GetChildren() do
                 if not Element:IsA('UIListLayout') then
                     Size = Size + Element.Size.Y.Offset;
                 end;
