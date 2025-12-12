@@ -226,7 +226,7 @@ function Window:CreateWindow(WindowTitle: string)
                 end;
             end;
 
-            Box.Size = UDim2.new(1, 0, 0, 30 + Size + 2);
+            Box.Size = UDim2.new(1, 0, 0, 70 + Size + 2);
         end
 
         function Addons:AddDivider()
