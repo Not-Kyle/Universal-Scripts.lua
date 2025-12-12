@@ -55,7 +55,7 @@ if syn and syn.product_gui then
 end
 Mawborn.Parent = CoreGui;
 Mawborn.ZIndexBehavior = Enum.ZIndexBehavior.Global;
-Mawborn.ResetOnSpawn = false;
+Mawborn.ResetOnSpawn = true;
 Mawborn.IgnoreGuiInset = true;
 
 function Window:CreateWindow(WindowTitle: string)
