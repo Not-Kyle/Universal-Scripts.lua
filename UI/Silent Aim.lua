@@ -70,8 +70,17 @@ function Window:CreateWindow(WindowTitle: string)
         BorderSizePixel = 0,
         Position = UDim2.new(0.5, 0, 0.5, 0),
         Size = UDim2.new(0, 252, 0, 302),
-        Draggable = true
     })
+
+    UserInputService.InputBegan:Connect(function(Arguments: EnumItem, NilInput: string)
+        if Arguments.KeyCode == Enum.KeyCode[UI.Keybind] then
+            Outer.Visible = not Outer.Visible
+        end
+
+        if NilInput then
+            return
+        end
+    end)
 
     local Inner = NewInstance('Instance', 'Frame', {
         Parent = Outer,
@@ -277,16 +286,6 @@ function Window:CreateWindow(WindowTitle: string)
 
         return Addons
     end
-
-    UserInputService.InputBegan:Connect(function(Arguments: EnumItem, NilInput: string)
-        if Arguments.KeyCode == Enum.KeyCode[UI.Keybind] then
-            Outer.Visible = not Outer.Visible
-        end
-
-        if NilInput then
-            return
-        end
-    end)
 
     return Library
 end
