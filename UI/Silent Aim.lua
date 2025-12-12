@@ -242,10 +242,8 @@ function Window:CreateWindow(WindowTitle: string)
 
             local Blank = NewInstance('Instance', 'Frame', {
                 Parent = BoxContainer,
-                BackgroundTransparency = 1,
-                BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+                BackgroundColor3 = UI.AccentColor,
                 BorderColor3 = Color3.fromRGB(0, 0, 0),
-                BorderSizePixel = 0,
                 Size = UDim2.new(0, 100, 0, Size),
             })
         end
