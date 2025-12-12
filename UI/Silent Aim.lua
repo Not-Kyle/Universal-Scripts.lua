@@ -282,13 +282,15 @@ function Window:CreateWindow(WindowTitle: string)
         return Addons
     end
 
-    UserInputService.InputBegan:Connect(function(Arguments: InputObject, NilInput: boolean)
+    function OnInput(Arguments: InputObject, NilInput: boolean)
         if NilInput then return end
 
         if Arguments.KeyCode == Enum.KeyCode[UI.Keybind] then
             Outer.Visible = not Outer.Visible
         end
-    end)
+    end
+
+    UserInputService.InputBegan:Connect(OnInput)
 
     return Library
 end
