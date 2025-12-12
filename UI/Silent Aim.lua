@@ -53,7 +53,7 @@ if syn and syn.product_gui then
 end
 Mawborn.Parent = CoreGui;
 Mawborn.ZIndexBehavior = Enum.ZIndexBehavior.Global;
-Mawborn.ResetOnSpawn = true;
+Mawborn.ResetOnSpawn = false;
 Mawborn.IgnoreGuiInset = true;
 
 function Window:CreateWindow(WindowTitle: string)
@@ -161,6 +161,7 @@ function Window:CreateWindow(WindowTitle: string)
             BackgroundColor3 = UI.AccentColor,
             BorderColor3 = Color3.fromRGB(27, 27, 27),
             Size = UDim2.new(0, 216, 0, 70),
+            AutomaticSize = Enum.AutomaticSize.Y,
         })
 
         local UIStrokeOuter3 = NewInstance('Instance', 'UIStroke', {
