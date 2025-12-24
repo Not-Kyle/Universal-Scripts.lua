@@ -5,5 +5,5 @@ if not ChatWindowConfiguration then
     return
 end
 
-ChatWindowConfiguration.Enabled = false;
+ChatWindowConfiguration.Enabled = true;
 
