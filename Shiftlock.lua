@@ -1,7 +1,8 @@
-local host = game:GetService'Players'.LocalPlayer
+local Players = game:GetService('Players');
+local Host = Players.LocalPlayer;
 
-coroutine.resume(coroutine.create(function()
+task.spawn(function() -- Incase games enforce no shiftlock?
     while task.wait() do
-        host.DevEnableMouseLock = true
+        Host.DevEnableMouseLock = true;
     end
-end))
+end)
