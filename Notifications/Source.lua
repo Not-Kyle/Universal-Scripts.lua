@@ -41,11 +41,11 @@ Mawborne.ResetOnSpawn = false;
 Mawborne.IgnoreGuiInset = true;
 Mawborne.Parent = gethui() or CoreGui;
 
-function Window:Panel()
+function Window:Panel(ScreenGui: Instance)
     local Library = {};
 
     local Holder = NewInstance('Instance', 'Frame', {
-        Parent = Mawborne,
+        Parent = ScreenGui or Mawborne,
         BackgroundColor3 = Color3.fromRGB(255, 255, 255),
         BackgroundTransparency = 1,
         BorderColor3 = Color3.fromRGB(0, 0, 0),
