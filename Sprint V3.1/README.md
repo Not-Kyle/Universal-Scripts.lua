@@ -52,3 +52,7 @@ loadstring(game:HttpGet('https://raw.githubusercontent.com/Not-Kyle/Universal-Sc
 > Speed 25
 > 
 > Prefix !
+
+### What is spoofwalkspeed?
+
+> Spoofwalkspeed is for games that have walkspeed value detections, so if a game has a terrible anticheat and doesnt check if WalkSpeed changes correctly. It will bypass their anti-cheat
