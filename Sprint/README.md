@@ -2,6 +2,7 @@
 ## How to use?
 
 > Press LeftShift to start sprinting
+> 
 > Press B to turn sprint off and on
 
 > To change methods, say in chat [method (cframe / movedirection / lookvector / walkspeed / spoofwalkspeed)]
@@ -29,7 +30,7 @@
 > Factoryreset - Factory resets your keybinds
 > 
 > Method - Changes your your blink moves or functions
-
+> 
 > Keybind sprint - Changes your sprints keybind
 > 
 > keybind enablesprint - Changes what you have to press in order to start sprinting
@@ -39,7 +40,7 @@
 > Keybind sprint C
 > 
 > Keybind enablesprint Leftctrl
-
+> 
 > Method spoofwalkspeed
 > 
 > Speed 25
