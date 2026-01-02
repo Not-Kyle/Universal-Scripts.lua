@@ -2,7 +2,6 @@
 ## How to use?
 
 > Press LeftShift to start sprinting
-> 
 > Press B to turn sprint off and on
 
 > To change methods, say in chat [method (cframe / movedirection / lookvector / walkspeed / spoofwalkspeed)]
