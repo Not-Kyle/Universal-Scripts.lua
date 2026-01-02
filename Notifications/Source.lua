@@ -117,7 +117,7 @@ function Window:Panel(ScreenGui: Instance)
 
         task.wait()
 
-        local TargetWidth = math.clamp(Label.TextBounds.X + 20, 120, 400)
+        local TargetWidth = math.clamp(Label.TextBounds.X + 20, 120, 600)
         Label.Size = UDim2.new(0, TargetWidth, 1, 0)
 
         local Info = TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.In)
