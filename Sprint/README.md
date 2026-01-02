@@ -46,3 +46,8 @@
 > Speed 25
 > 
 > Prefix !
+
+### Loadstring
+```lua
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Not-Kyle/Universal-Scripts.lua/refs/heads/main/Sprint/Source.lua'))();
+```
