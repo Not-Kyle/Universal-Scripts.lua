@@ -1,4 +1,10 @@
 # Sprint by Mawborn or hellokittysouljia: discord @killserver
+
+### Loadstring
+```lua
+loadstring(game:HttpGet('https://raw.githubusercontent.com/Not-Kyle/Universal-Scripts.lua/refs/heads/main/Sprint%20V3.1/Source.lua'))();
+```
+
 ## How to use?
 
 > Press LeftShift to start sprinting
@@ -46,8 +52,3 @@
 > Speed 25
 > 
 > Prefix !
-
-### Loadstring
-```lua
-loadstring(game:HttpGet('https://raw.githubusercontent.com/Not-Kyle/Universal-Scripts.lua/refs/heads/main/Sprint%20V3.1/Source.lua'))();
-```
