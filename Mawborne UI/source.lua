@@ -87,7 +87,7 @@ function Window:CreateWindow(WindowTitle: string)
         BackgroundTransparency = 1,
         BorderColor3 = Color3.fromRGB(0, 0, 0),
         BorderSizePixel = 0,
-        Position = UDim2.new(-0.0004, 0, 0.35, 0),
+        Position = UDim2.new(-0.0004, 0, 0.38, 0),
         Size = UDim2.new(0, 200, 0, 300),
     })
 
