@@ -87,7 +87,7 @@ function Window:CreateWindow(WindowTitle: string)
         BackgroundTransparency = 1,
         BorderColor3 = Color3.fromRGB(0, 0, 0),
         BorderSizePixel = 0,
-        Position = UDim2.new(-0.0004, 0, 0.38, 0),
+        Position = UDim2.new(-0.0004, 0, 0.35, 0),
         Size = UDim2.new(0, 200, 0, 300),
     })
 
@@ -548,17 +548,14 @@ function Window:CreateWindow(WindowTitle: string)
                 end
 
                 local CheckState = function(Input: InputObject, State: string)
-                    if InfoIndex.Keybind == 'MB1' and Input.UserInputType == Enum.UserInputType.MouseButton1
-                    or InfoIndex.Keybind == 'MB2' and Input.UserInputType == Enum.UserInputType.MouseButton2 then
-                        self:SetValue(State)
+                    local IsKey = Input.UserInputType == Enum.UserInputType.Keyboard and Input.KeyCode.Name == InfoIndex.Keybind
+                    local IsMouse = (InfoIndex.Keybind == 'MB1' and Input.UserInputType == Enum.UserInputType.MouseButton1)
+                                or (InfoIndex.Keybind == 'MB2' and Input.UserInputType == Enum.UserInputType.MouseButton2)
 
-                        if InfoIndex.Changed then
-                            InfoIndex.Changed()
+                    if IsKey or IsMouse then
+                        if InfoIndex.Sync then
+                            Toggle:SetValue(State)
                         end
-                    end
-
-                    if Input.UserInputType == Enum.UserInputType.Keyboard and Input.KeyCode.Name == InfoIndex.Keybind then
-                        self:SetValue(State)
 
                         if InfoIndex.Changed then
                             InfoIndex.Changed()
@@ -567,7 +564,7 @@ function Window:CreateWindow(WindowTitle: string)
                 end
 
                 local OnInput = function(Input: InputObject, NilProcessing: boolean)
-                    if NilProcessing or not InfoIndex.Sync then return end
+                    if NilProcessing then return end
 
                     if InfoIndex.State == 'Toggle' then
                         CheckState(Input, not ToggleSwitch.Value)
