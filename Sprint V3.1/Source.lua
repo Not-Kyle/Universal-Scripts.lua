@@ -57,7 +57,7 @@ local OrginialWalkSpeed = Humanoid and Humanoid.WalkSpeed;
 local LoopSprint = false;
 local Sprint = true;
 
-local SprintSpeed = 4;
+local SprintSpeed = 8;
 
 local Folder = 'mawborn';
 local File = 'mawborn/Sprint.xml';
@@ -190,7 +190,7 @@ end
 function OnHeartbeat(Delta: number)
     local MoveDirection = (Humanoid and Humanoid.MoveDirection) or Vector3.zero
 
-    if (Sprint and Debounce.Sprint) or LoopSprint then
+    if Sprint and (Debounce.Sprint or LoopSprint) then
         local SprintSpeed = SprintSpeed / 6.5
 
         if Method == 'Movedirection' and MoveDirection then
@@ -273,10 +273,12 @@ function OnChatted(Commands: string)
         Notify('File has been deleted');
     end
 
+
     if table.find({'makefile', 'writefile'}, Arguments) then
         UpdateFile();
         Notify('File has been written');
     end
+
 
     if table.find({'resetfile', 'factoryreset', 'cleanfile'}, Arguments) then
         DeleteFile(); task.wait() UpdateFile();
@@ -284,10 +286,12 @@ function OnChatted(Commands: string)
         Notify('File has been factory reset');
     end
 
+
     if table.find({'notify', 'notifications'}, Arguments) then
         Config.Data.Notifications = not Config.Data.Notifications
         UpdateFile();
     end
+
 
     if table.find({'loopsprint', 'loopblink'}, Arguments) then
         LoopSprint = not LoopSprint;
@@ -295,11 +299,13 @@ function OnChatted(Commands: string)
         Notify(string.format('Loop Sprint is now: %s', tostring(LoopSprint) or 'null'));
     end
 
+
     if table.find({'sprint', 'blink', 'speed', 'run'}, Arguments) then
         Sprint = not Sprint
 
         Notify(string.format('Sprint is now: %s', tostring(Sprint) or 'null'));
     end
+
 
     if table.find({'prefix', 'pf'}, ArgumentsList[1]) then
         Config.Data.Prefix = tostring(ArgumentsList[2]) or '';
@@ -307,6 +313,7 @@ function OnChatted(Commands: string)
 
         Notify(string.format('Prefix is now: %s', Config.Data.Prefix or 'null'));
     end
+
 
     if table.find({'hotkey', 'key', 'keybind', 'macro'}, ArgumentsList[1]) then
 
@@ -332,6 +339,7 @@ function OnChatted(Commands: string)
         UpdateFile();
     end
 
+
     if table.find({'sprintspeed', 'blinkspeed', 'ss', 'ws', 'bs', 'speed', 'runspeed'}, ArgumentsList[1]) then
         local NewSpeed = tonumber(ArgumentsList[2]);
 
@@ -343,6 +351,7 @@ function OnChatted(Commands: string)
         Notify(string.format('Sprint Speed is now: %s', tostring(SprintSpeed) or '4'));
     end
 
+    
     if table.find({'method', 'md', 'pattern', 'form'}, ArgumentsList[1]) then
         if table.find({'movedirection', 'cframe', 'lookvector'}, ArgumentsList[2]) then
 
