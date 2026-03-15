@@ -3,6 +3,9 @@ getgenv().WorkSpace       = game:GetService'Workspace'
 getgenv().Stats           = game:GetService'Stats'
 getgenv().RunService      = game:GetService'RunService'
 
+local FramesPerSecond;
+local PingInt;
+
 local hellokittysouljia   = Instance.new("ScreenGui")
 hellokittysouljia.Name    = "hellokittysouljia"
 hellokittysouljia.Parent  = Core
@@ -54,9 +57,9 @@ FpsLabel.TextColor3       = Color3.fromRGB(255, 255, 255)
 FpsLabel.TextSize         = 14.000
 FpsLabel.TextXAlignment   = Enum.TextXAlignment.Left
 
-RunService.Stepped:Connect(function()
-    local FramesPerSecond = WorkSpace:GetRealPhysicsFPS()
-    local PingInt         = Stats:FindFirstChild'PerformanceStats'.Ping:GetValue()
+RunService.RenderStepped:Connect(function(Delta)
+    FramesPerSecond       = math.round(1/Delta)
+    PingInt               = Stats:FindFirstChild'PerformanceStats'.Ping:GetValue()
 
     PingLabel.Text        = " Ping: "..math.round(PingInt)
     FpsLabel.Text         = " Fps: "..math.floor(FramesPerSecond)
