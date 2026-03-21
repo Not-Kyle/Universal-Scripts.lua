@@ -1,9 +1,36 @@
-local Import = setmetatable({}, {
-    __index = function(self: Instance, ...)
-        local Arguments = {...}
-        rawset(self, Arguments, Arguments[1])
-        
-        return game:GetService(Arguments[1]);
+local Cloneref, Protectinstance, ProtectGui, Gethui = cloneref, protectinstance, (syn and syn.protect_gui), gethui;
+local Drawing, DrawingNew = Drawing, Drawing.new;
+
+local Setmetatable, Rawset = setmetatable, rawset;
+local Type, Typeof, Pcall, Assert, Warn = type, typeof, pcall, assert, warn;
+local Clamp, Max, Floor = math.clamp, math.max, math.floor;
+local Format, Tostring = string.format, tostring;
+local TaskDelay, Wait, Defer = task.delay, task.wait, task.defer;
+local Next, Ipairs = next, ipairs;
+local RawGame = game;
+
+local RunGame, GameResult = Pcall(Cloneref, RawGame);
+local Game = (RunGame and Typeof(GameResult) == 'Instance') and GameResult or RawGame;
+
+local Import = Setmetatable({}, {
+    __index = function(self, ServiceName: string)
+        Assert(Type(ServiceName) == 'string', 'Provided class must be a string');
+
+        local Success, Provider = Pcall(function()
+            return Game:GetService(ServiceName);
+        end)
+
+        if Success and Provider then
+            if Cloneref then
+                Provider = Cloneref(Provider);
+            end
+
+            Rawset(self, ServiceName, Provider);
+            return Provider;
+        end
+
+        Warn('Service: (' .. ServiceName .. ') not found!');
+        return;
     end
 })
 
@@ -19,8 +46,11 @@ local Bools = {};
 local Selection = {};
 local Window = {};
 
-getgenv().Boolean = Bools;
-getgenv().Select = Selection;
+Window.Boolean = Bools;
+Window.Select = Selection;
+
+local Boolean = Window.Boolean;
+local Select = Window.Select;
 
 local UI = {
     AccentColor = Color3.fromRGB(14, 14, 14),
@@ -36,41 +66,36 @@ local UI = {
 }
 
 function NewInstance(Type: string, Class: string, Properties: any)
-    if Type == 'Draw' and Drawing then
-        Class = Drawing.new(Class);
+    if Type == 'Draw' and Drawing and DrawingNew then
+        Class = DrawingNew(Class);
     end
 
     if Type == 'Instance' then
         Class = Instance.new(Class);
 
-        if protectinstance then
-            protectinstance(Class)
+        if Protectinstance then
+            Protectinstance(Class)
         end
     end
 
-    for Index, Values in next, Properties do
+    for Index, Values in Next, Properties do
         Class[Index] = Values;
     end
 
     return Class;
 end
 
-getgenv().Mawborn = Instance.new('ScreenGui')
-Mawborn.Name = 'Mawborn';
-if syn and syn.product_gui then
-    syn.protect_gui(Mawborn)
+local Mawborn = Instance.new('ScreenGui')
+Mawborn.Name = '_';
+if ProtectGui then
+    ProtectGui(Mawborn)
 end
+Mawborn.Parent = Gethui() or CoreGui;
 Mawborn.ZIndexBehavior = Enum.ZIndexBehavior.Global;
 Mawborn.ResetOnSpawn = false;
 Mawborn.IgnoreGuiInset = true;
 
-if gethui() then
-    Mawborn.Parent = gethui();
-else
-    Mawborn.Parent = CoreGui;
-end
-
-function Resize(Sizer: Instance, Index: Instance, SizeX: number, SizeY: number)
+local function Resize(Sizer: Instance, Index: Instance, SizeX: number, SizeY: number)
     return Index:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
         Sizer.Size = UDim2.new(0, SizeX, 0, SizeY + Index.AbsoluteContentSize.Y + 2)
     end)
@@ -225,15 +250,15 @@ function Window:CreateWindow(WindowTitle: string)
             Size = UDim2.new(0, 3, 1, 0),
         })
 
-        task.wait()
+        Wait()
 
-        local TargetWidth = math.clamp(Label.TextBounds.X + 20, 120, 400)
+        local TargetWidth = Clamp(Label.TextBounds.X + 20, 120, 400)
         Label.Size = UDim2.new(0, TargetWidth, 1, 0)
 
         local Info = TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.In)
         local TweenIn = TweenService:Create(Frame, Info, {Size = UDim2.new(0, TargetWidth, 0, 20)}):Play()
 
-        task.delay(Delay or 5, function()
+        TaskDelay(Delay or 5, function()
             local TweenOut = TweenService:Create(Frame, Info, {Size = UDim2.new(0, 0, 0, 20)})
             TweenOut:Play() -- Must seperate to destroy the frame???
 
@@ -247,8 +272,7 @@ function Window:CreateWindow(WindowTitle: string)
         Side = Side or 'Left';
         BoxTitle = BoxTitle or 'Unknown';
 
-        local SidePosition = (Side == 'Left') and 0.014 or 0.51
-
+        local SidePosition = (Side == 'Left') and 0.014 or 0.51;
         local Addons = {};
 
         if not UI[Side] then
@@ -268,10 +292,10 @@ function Window:CreateWindow(WindowTitle: string)
                 Padding = UDim.new(0.01, 0),
             })
 
-            UI[Side] = Container
+            UI[Side] = Container;
         end
 
-        local Container = UI[Side]
+        local Container = UI[Side];
 
         local Box = NewInstance('Instance', 'Frame', {
             Parent = Container,
@@ -328,10 +352,10 @@ function Window:CreateWindow(WindowTitle: string)
             SortOrder = Enum.SortOrder.LayoutOrder,
         })
 
-        Resize(Box, UIListLayout2, 216, 26)
+        Resize(Box, UIListLayout2, 216, 26);
 
-        local ChildCount = #BoxContainer:GetChildren()
-        local AddPixels = 5 + (ChildCount * 1)
+        local ChildCount = #BoxContainer:GetChildren();
+        local AddPixels = 5 + (ChildCount * 1);
 
         function Addons:AddBlank(Size: number)
             local Blank = NewInstance('Instance', 'Frame', {
@@ -492,11 +516,11 @@ function Window:CreateWindow(WindowTitle: string)
                 })
 
                 function InfoIndex:OnClick(Callback)
-                    if typeof(Callback) ~= 'function' then
-                        Callback = function() end
+                    if Typeof(Callback) ~= 'function' then
+                        Callback = function() end;
                     end
                     
-                    self.Changed = Callback
+                    self.Changed = Callback;
                 end
 
                 local KeybindOnInput = function(Input: InputObject, NilInput: boolean) -- Creds to Wallys UI
@@ -512,18 +536,18 @@ function Window:CreateWindow(WindowTitle: string)
                         local Break = false;
                         local SetText = '';
 
-                        task.spawn(function()
+                        Defer(function()
                             while not Break do
                                 SetText = (SetText == '...') and '' or SetText
 
                                 SetText ..= '.';
                                 KeybindBox.Text = SetText;
 
-                                task.wait(0.4)
+                                Wait(0.4)
                             end
                         end)
 
-                        task.wait(0.2)
+                        Wait(0.2)
 
                         local OnEvent; OnEvent = UserInputService.InputBegan:Connect(function(Input: InputObject)
                             local Keybind;
@@ -538,8 +562,8 @@ function Window:CreateWindow(WindowTitle: string)
 
                             Break = true;
 
-                            KeybindBox.Text = tostring(Keybind)
-                            InfoIndex.Keybind = tostring(Keybind)
+                            KeybindBox.Text = Tostring(Keybind)
+                            InfoIndex.Keybind = Tostring(Keybind)
 
                             KeybindBox:ReleaseFocus()
                             OnEvent:Disconnect()
@@ -595,7 +619,7 @@ function Window:CreateWindow(WindowTitle: string)
             end
 
             function Toggle:OnChanged(Callback)
-                if typeof(Callback) ~= 'function' then
+                if Typeof(Callback) ~= 'function' then
                     Callback = function() end
                 end
                 
@@ -619,24 +643,30 @@ function Window:CreateWindow(WindowTitle: string)
 
             Toggle:SetValue(Info.Default ~= nil and Info.Default or ToggleSwitch.Value)
 
-            setmetatable(Toggle, {  -- I did not make this, creds to whoever did
+            Setmetatable(Toggle, {
                 __index = function(_, Key)
-                    if Key == 'Value' then return ToggleSwitch.Value end
+                    if Key == 'Value' then 
+                        return ToggleSwitch.Value;
+                    end
+
                     return ToggleSwitch[Key]
                 end,
 
                 __newindex = function(self, Key, Value)
-                    if Key == 'Value' then self:SetValue(Value) else rawset(self, Key, Value) end
+                    if Key == 'Value' then
+                        self:SetValue(Value);
+                    else
+                        Rawset(self, Key, Value);
+                    end
                 end
             })
 
-            Boolean[Toggle.Index] = Toggle
-
-            return Toggle
+            Boolean[Toggle.Index] = Toggle;
+            return Toggle;
         end
 
         function Addons:AddSlider(Info: table)
-            local Sliding = false
+            local Sliding = false;
 
             local Index = {
                 Index = Info.Index,
@@ -690,7 +720,7 @@ function Window:CreateWindow(WindowTitle: string)
                 BackgroundColor3 = UI.ScriptColor,
                 BorderColor3 = UI.BorderColor,
                 Position = UDim2.new(0, 0, 0, 0),
-                Size = UDim2.new(math.clamp((Index.Default - Index.Min) / (Index.Max - Index.Min) + 0.02, 0, 1), 0, 1, 0),
+                Size = UDim2.new(Clamp((Index.Default - Index.Min) / (Index.Max - Index.Min) + 0.02, 0, 1), 0, 1, 0),
             })
 
             local UIStroke2 = NewInstance('Instance', 'UIStroke', {
@@ -711,14 +741,14 @@ function Window:CreateWindow(WindowTitle: string)
                 BorderSizePixel = 0,
                 Size = UDim2.new(1, 0, 1, 0),
                 Font = Enum.Font.Code,
-                Text = string.format('%.'.. Index.Rounding ..'f', Index.Default) .. ' / ' .. Index.Max,
+                Text = Format('%.'.. Index.Rounding ..'f', Index.Default) .. ' / ' .. Index.Max,
                 TextColor3 = UI.TextColor,
                 TextSize = 13,
                 TextStrokeTransparency = 0,
             })
 
             function Index:OnClick(Callback)
-                if typeof(Callback) ~= 'function' then
+                if Typeof(Callback) ~= 'function' then
                     Callback = function() end
                 end
                 
@@ -726,27 +756,27 @@ function Window:CreateWindow(WindowTitle: string)
             end
 
             function Index:SetValue(Value: number)
-                if typeof(Value) ~= 'number' then
+                if Typeof(Value) ~= 'number' then
                     Value = self.Default
                 end
 
                 self.Value = Value
 
-                local Scale = math.clamp((Mouse.X - Slider.AbsolutePosition.X) / Slider.AbsoluteSize.X, 0, 1)
-                local FillPixels = math.max(Scale * Slider.AbsoluteSize.X, 3)
+                local Scale = Clamp((Mouse.X - Slider.AbsolutePosition.X) / Slider.AbsoluteSize.X, 0, 1)
+                local FillPixels = Max(Scale * Slider.AbsoluteSize.X, 3)
                 Frame.Size = UDim2.new(0, FillPixels, 1, 0)
 
                 self.Value = self.Min + (self.Max - self.Min) * Scale
-                self.Value = math.floor(self.Value * (10 ^ self.Rounding)) / (10 ^ self.Rounding)
+                self.Value = Floor(self.Value * (10 ^ self.Rounding)) / (10 ^ self.Rounding)
 
-                Label.Text = string.format('%.'.. self.Rounding ..'f', self.Value) .. ' / ' .. self.Max
+                Label.Text = Format('%.'.. self.Rounding ..'f', self.Value) .. ' / ' .. self.Max
             end
 
-            function OnInput(Input: InputObject)
+            local function OnInput(Input: InputObject)
                 if Input.UserInputType == Enum.UserInputType.MouseButton1 then
                     Sliding = true;
 
-                    while Sliding and task.wait() do -- Yup, I don't care anymore. I want this done
+                    while Sliding and Wait() do -- Yup, I don't care anymore. I want this done
                         Index:SetValue(Index.Value)
                     end
 
@@ -756,7 +786,7 @@ function Window:CreateWindow(WindowTitle: string)
                 end
             end
 
-            function OnEnded(Input: InputObject)
+            local function OnEnded(Input: InputObject)
                 if Input.UserInputType == Enum.UserInputType.MouseButton1 then
                     Sliding = false;
                 end
@@ -775,7 +805,7 @@ function Window:CreateWindow(WindowTitle: string)
             local Index = {
                 Index = Info.Index,
                 Title = Info.Title or Info.Index or 'Unknown',
-                Values = typeof(Info.Values) == 'table' and Info.Values or {},
+                Values = Typeof(Info.Values) == 'table' and Info.Values or {},
                 Default = Info.Default or '...',
                 Value = Info.Default
             }
@@ -926,7 +956,7 @@ function Window:CreateWindow(WindowTitle: string)
             end
 
             function Index:OnChanged(Callback)
-                if typeof(Callback) ~= 'function' then
+                if Typeof(Callback) ~= 'function' then
                     Callback = function() end
                 end
                 
@@ -934,7 +964,7 @@ function Window:CreateWindow(WindowTitle: string)
             end
 
             function Index:SetValue(Value: string)
-                if typeof(Value) ~= 'string' then
+                if Typeof(Value) ~= 'string' then
                     Value = Index.Default
                 end
 
@@ -946,8 +976,8 @@ function Window:CreateWindow(WindowTitle: string)
                 end
             end
 
-            for _, Value in ipairs(Index.Values) do
-                Index:AddButton(Value)
+            for _, Value in Ipairs(Index.Values) do
+                Index:AddButton(Value);
             end
 
             Dropdown.InputBegan:Connect(function(Input: InputObject)
@@ -956,9 +986,8 @@ function Window:CreateWindow(WindowTitle: string)
                 end
             end)
 
-            Resize(OptionHolder, UIListLayout, 204, 0)
-
-            Select[Index.Index] = Index
+            Resize(OptionHolder, UIListLayout, 204, 0);
+            Select[Index.Index] = Index;
 
             return Index
         end
@@ -1016,7 +1045,7 @@ function Window:CreateWindow(WindowTitle: string)
             })
 
             function Index:OnClick(Callback)
-                if typeof(Callback) ~= 'function' then
+                if Typeof(Callback) ~= 'function' then
                     Callback = function() end
                 end
                 
@@ -1041,7 +1070,7 @@ function Window:CreateWindow(WindowTitle: string)
         return Library:AddBox('Right', Title)
     end
 
-    function OnInput(Arguments: InputObject, NilInput: boolean)
+    local function OnInput(Arguments: InputObject, NilInput: boolean)
         if NilInput then return end
 
         if Arguments.KeyCode == Enum.KeyCode[UI.Keybind] then
